@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "Asterix_Decoder/1.0.0": {
+        "dependencies": {
+          "Class_Library": "1.0.0"
+        },
+        "runtime": {
+          "Asterix_Decoder.dll": {}
+        }
+      },
+      "Class_Library/1.0.0": {
+        "runtime": {
+          "Class_Library.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Asterix_Decoder/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Class_Library/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
