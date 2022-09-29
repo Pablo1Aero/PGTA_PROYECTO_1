@@ -14,7 +14,8 @@ namespace Asterix_Decoder
 {
     public partial class Form1 : Form
     {
-        public AsterixFile Asterix = new AsterixFile(null, null, 0);
+        public int FileCount = 0;
+        public List<AsterixFile> AsterixFiles = new List<AsterixFile>();
         public Form1()
         {
             InitializeComponent();
@@ -25,9 +26,59 @@ namespace Asterix_Decoder
         {
             
         }
-        public AsterixFile button1_Click(object sender, EventArgs e)
-        {
 
+        private void InitializeComponent()
+        {
+            this.Load_Asterix_Btn = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.Read_Asterix_Btn = new System.Windows.Forms.Button();
+            this.openFileDialogAsterix = new System.Windows.Forms.OpenFileDialog();
+            this.SuspendLayout();
+            // 
+            // Load_Asterix_Btn
+            // 
+            this.Load_Asterix_Btn.Location = new System.Drawing.Point(12, 12);
+            this.Load_Asterix_Btn.Name = "Load_Asterix_Btn";
+            this.Load_Asterix_Btn.Size = new System.Drawing.Size(293, 29);
+            this.Load_Asterix_Btn.TabIndex = 0;
+            this.Load_Asterix_Btn.Text = "LOAD ASTERIX FILE";
+            this.Load_Asterix_Btn.UseVisualStyleBackColor = true;
+            this.Load_Asterix_Btn.Click += new System.EventHandler(this.Load_Asterix_Btn_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(12, 47);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(293, 27);
+            this.textBox1.TabIndex = 1;
+            // 
+            // Read_Asterix_Btn
+            // 
+            this.Read_Asterix_Btn.Location = new System.Drawing.Point(12, 80);
+            this.Read_Asterix_Btn.Name = "Read_Asterix_Btn";
+            this.Read_Asterix_Btn.Size = new System.Drawing.Size(293, 29);
+            this.Read_Asterix_Btn.TabIndex = 2;
+            this.Read_Asterix_Btn.Text = "READ ASTERIX FILE";
+            this.Read_Asterix_Btn.UseVisualStyleBackColor = true;
+            // 
+            // openFileDialogAsterix
+            // 
+            this.openFileDialogAsterix.FileName = "openFileDialogAsterix";
+            // 
+            // Form1
+            // 
+            this.ClientSize = new System.Drawing.Size(782, 389);
+            this.Controls.Add(this.Read_Asterix_Btn);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.Load_Asterix_Btn);
+            this.Name = "Form1";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        public void Load_Asterix_Btn_Click(object sender, EventArgs e)
+        {
             openFileDialogAsterix.InitialDirectory = "c:\\";
             openFileDialogAsterix.Filter = "ast files (*.ast)|*.ast|All files (*.*)|*.*";
             openFileDialogAsterix.FilterIndex = 2;
@@ -35,46 +86,35 @@ namespace Asterix_Decoder
 
             if (openFileDialogAsterix.ShowDialog() == DialogResult.OK)
             {
-                int i = 0;
-                i++;
-                string Name_File = "AsterixFile" + i;
-                
-                Asterix.Files_Paths.Add(openFileDialogAsterix.FileName);
+                AsterixFile Asterix = new AsterixFile(null, null);
 
                 string File_Path = openFileDialogAsterix.FileName.ToString();
-                bool IsIn = Asterix.Files_Paths.Find(File_Path);
-                if (Asterix.Files_Paths.Exists(Asterix.Files_Paths == openFileDialogAsterix.FileName)  == false) 
+
+                bool IsIn = AsterixFiles.Exists(Asterix => Asterix.path == File_Path);
+                if (IsIn == false)
                 {
-                    if (Asterix.Files_Paths[Asterix.Number_files_loaded] != null)
-                    {
-                        textBox1.Text = Asterix.path;
-                        Asterix.Number_files_loaded++;
-                        return Asterix;
-                    }
-                    else
-                    {
-                        return null;
-                    }
+                    FileCount++;
+                    Asterix.path = File_Path;
+                    Asterix.name = "Asterix File" + FileCount;
+                    AsterixFiles.Add(Asterix);
+                    textBox1.Text = "Added: " + Asterix.name;
                 }
-            }
-            else
-            {
-                return null;
             }
         }
 
-        private void Read_Asterix_Btn_Click(object sender, EventArgs e)
+
+        /*private void Read_Asterix_Btn_Click(object sender, EventArgs e)
         {
             try
             {
-                AsterixFile.ReadFile(Asterix.path);
+                AsterixFile.ReadFile(AsterixFiles[].path);
             }
             catch
             {
                 MessageBox.Show("Error reading Asterix file");
             }
         }
+        */
 
-       
     }
 }

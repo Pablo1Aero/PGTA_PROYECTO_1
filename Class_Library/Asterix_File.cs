@@ -12,16 +12,15 @@ namespace ClassLibrary
 
     {
 
-        public List<string> Files_Names = new List<string>();
-        public List<string> Files_Paths = new List<string>();
-        public int Number_files_loaded = 0;
+        public string path { set; get; }
+        public string name { set; get; }
 
-        public AsterixFile(List<string> File_Names, List<string> Files_Paths, int Number_files_loaded)
+        public AsterixFile(string path, string name)
         {
-            this.Files_Names = File_Names;
-            this.Files_Paths = Files_Paths;
-            this.Number_files_loaded = Number_files_loaded;
+            this.path = path;
+            this.name = name;
         }
+
 
         List<CAT10> CAT10_List = new List<CAT10>();  //Initialize the list of CAT10 messages
         //List<CAT21> CAT21_List = new List<CAT21>();  //Initialize the list of CAT21 messages
@@ -29,7 +28,10 @@ namespace ClassLibrary
         DataTable CAT21_Table = new DataTable();     //Initialize the datatables of CAT21 messages
         public int CAT10_Number_Messages = 0;
         public int CAT21_Number_Messages = 0;
-        
+        List<List<byte>> Raw_messages = new List<List<byte>>();
+
+        //CAT number in byte
+        byte CAT10_ID = 10;
 
         public string ReadFile(string path)
         {
@@ -44,11 +46,25 @@ namespace ClassLibrary
                     int j = 0;
                     while (Octet_array.Length> j)
                     {
-                        Octet_array[j] = File_Bytes[i];
+                        Octet_array[j] = Bytes_List[i];
                         j++;
                     }
                     Bytes_List.Add(Octet_array);
                     i++;
+                }
+                i = 1;
+                //Bucle that groups bytes into messages and clasify them by CAT
+                while (Bytes_List.Count > i)
+                {
+
+                    int Len_Message = (BitConverter.ToInt32(Bytes_List[i],0) + BitConverter.ToInt32(Bytes_List[i+1],0));
+                    int j = 0;
+                    Raw_messages.Add(Bytes_List[i-1]);
+                    while (Len_Message > j)
+                    {
+                        Raw_messages.Add(Bytes_List[i]);
+                    }
+                       
                 }
                 return "1";
 
@@ -65,4 +81,4 @@ namespace ClassLibrary
 
     }
 }
-}
+

@@ -19,5 +19,6 @@ namespace Asterix_Decoder
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
         }
+
     }
 }
