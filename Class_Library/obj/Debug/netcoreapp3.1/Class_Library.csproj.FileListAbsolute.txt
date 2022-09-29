@@ -1,0 +1,10 @@
+C:\Users\pablo\OneDrive\Escritorio\UNIVERSIDAD\PGTA\PGTA_PROYECTO_1\Class_Library\bin\Debug\netcoreapp3.1\Class_Library.deps.json
+C:\Users\pablo\OneDrive\Escritorio\UNIVERSIDAD\PGTA\PGTA_PROYECTO_1\Class_Library\bin\Debug\netcoreapp3.1\Class_Library.dll
+C:\Users\pablo\OneDrive\Escritorio\UNIVERSIDAD\PGTA\PGTA_PROYECTO_1\Class_Library\bin\Debug\netcoreapp3.1\Class_Library.pdb
+C:\Users\pablo\OneDrive\Escritorio\UNIVERSIDAD\PGTA\PGTA_PROYECTO_1\Class_Library\obj\Debug\netcoreapp3.1\Class_Library.csproj.AssemblyReference.cache
+C:\Users\pablo\OneDrive\Escritorio\UNIVERSIDAD\PGTA\PGTA_PROYECTO_1\Class_Library\obj\Debug\netcoreapp3.1\Class_Library.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pablo\OneDrive\Escritorio\UNIVERSIDAD\PGTA\PGTA_PROYECTO_1\Class_Library\obj\Debug\netcoreapp3.1\Class_Library.AssemblyInfoInputs.cache
+C:\Users\pablo\OneDrive\Escritorio\UNIVERSIDAD\PGTA\PGTA_PROYECTO_1\Class_Library\obj\Debug\netcoreapp3.1\Class_Library.AssemblyInfo.cs
+C:\Users\pablo\OneDrive\Escritorio\UNIVERSIDAD\PGTA\PGTA_PROYECTO_1\Class_Library\obj\Debug\netcoreapp3.1\Class_Library.csproj.CoreCompileInputs.cache
+C:\Users\pablo\OneDrive\Escritorio\UNIVERSIDAD\PGTA\PGTA_PROYECTO_1\Class_Library\obj\Debug\netcoreapp3.1\Class_Library.dll
+C:\Users\pablo\OneDrive\Escritorio\UNIVERSIDAD\PGTA\PGTA_PROYECTO_1\Class_Library\obj\Debug\netcoreapp3.1\Class_Library.pdb
