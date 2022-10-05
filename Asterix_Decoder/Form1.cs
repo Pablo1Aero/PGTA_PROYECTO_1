@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using ClassLibrary;
+using Asterix_Decoder;
 
 namespace Asterix_Decoder
 {
@@ -16,6 +17,7 @@ namespace Asterix_Decoder
     {
         public int FileCount = 0;
         public List<AsterixFile> AsterixFiles = new List<AsterixFile>();
+        public DataView Message_DataView = new DataView();
         public Form1()
         {
             InitializeComponent();
@@ -60,6 +62,7 @@ namespace Asterix_Decoder
             this.Read_Asterix_Btn.TabIndex = 2;
             this.Read_Asterix_Btn.Text = "READ ASTERIX FILE";
             this.Read_Asterix_Btn.UseVisualStyleBackColor = true;
+            this.Read_Asterix_Btn.Click += new System.EventHandler(this.Read_Asterix_Btn_Click);
             // 
             // openFileDialogAsterix
             // 
@@ -99,6 +102,24 @@ namespace Asterix_Decoder
                     AsterixFiles.Add(Asterix);
                     textBox1.Text = "Added: " + Asterix.name;
                 }
+            }
+        }
+
+        private void Read_Asterix_Btn_Click(object sender, EventArgs e)
+        {
+            
+            try
+            {
+                foreach (AsterixFile Asterix in AsterixFiles)
+                {
+                    Asterix.ReadFile(Asterix.path);
+                    
+                }
+                Message_DataView.ShowDialog();
+            }
+            catch
+            {
+                MessageBox.Show("Error reading Asterix files. Check for loaded Asterix files.");
             }
         }
 
