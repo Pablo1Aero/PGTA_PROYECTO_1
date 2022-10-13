@@ -24,5 +24,6 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button Read_Asterix_Btn;
         private System.Windows.Forms.OpenFileDialog openFileDialogAsterix;
+        private System.Windows.Forms.ComboBox Selector_Archivos;
     }
 }

@@ -17,3 +17,4 @@ C:\Users\pablo\OneDrive\Escritorio\UNIVERSIDAD\PGTA\PGTA_PROYECTO_1\Asterix_Deco
 C:\Users\pablo\OneDrive\Escritorio\UNIVERSIDAD\PGTA\PGTA_PROYECTO_1\Asterix_Decoder\obj\Debug\netcoreapp3.1\Asterix_Decoder.dll
 C:\Users\pablo\OneDrive\Escritorio\UNIVERSIDAD\PGTA\PGTA_PROYECTO_1\Asterix_Decoder\obj\Debug\netcoreapp3.1\Asterix_Decoder.pdb
 C:\Users\pablo\OneDrive\Escritorio\UNIVERSIDAD\PGTA\PGTA_PROYECTO_1\Asterix_Decoder\obj\Debug\netcoreapp3.1\Asterix_Decoder.genruntimeconfig.cache
+C:\Users\pablo\OneDrive\Escritorio\UNIVERSIDAD\PGTA\PGTA_PROYECTO_1\Asterix_Decoder\obj\Debug\netcoreapp3.1\Asterix_Decoder.Form2.resources
