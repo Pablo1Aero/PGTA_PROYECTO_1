@@ -17,4 +17,22 @@ C:\Users\pablo\OneDrive\Escritorio\UNIVERSIDAD\PGTA\PGTA_PROYECTO_1\Asterix_Deco
 C:\Users\pablo\OneDrive\Escritorio\UNIVERSIDAD\PGTA\PGTA_PROYECTO_1\Asterix_Decoder\obj\Debug\netcoreapp3.1\Asterix_Decoder.dll
 C:\Users\pablo\OneDrive\Escritorio\UNIVERSIDAD\PGTA\PGTA_PROYECTO_1\Asterix_Decoder\obj\Debug\netcoreapp3.1\Asterix_Decoder.pdb
 C:\Users\pablo\OneDrive\Escritorio\UNIVERSIDAD\PGTA\PGTA_PROYECTO_1\Asterix_Decoder\obj\Debug\netcoreapp3.1\Asterix_Decoder.genruntimeconfig.cache
-C:\Users\pablo\OneDrive\Escritorio\UNIVERSIDAD\PGTA\PGTA_PROYECTO_1\Asterix_Decoder\obj\Debug\netcoreapp3.1\Asterix_Decoder.Form2.resources
+E:\UNI\4º\Proyectos de gestion de trafico aereo\Versiones Git\V3\PGTA_PROYECTO_1-master (3)\PGTA_PROYECTO_1-master\Asterix_Decoder\obj\Debug\netcoreapp3.1\Asterix_Decoder.csproj.AssemblyReference.cache
+E:\UNI\4º\Proyectos de gestion de trafico aereo\Versiones Git\V3\PGTA_PROYECTO_1-master (3)\PGTA_PROYECTO_1-master\Asterix_Decoder\obj\Debug\netcoreapp3.1\Asterix_Decoder.Form1.resources
+E:\UNI\4º\Proyectos de gestion de trafico aereo\Versiones Git\V3\PGTA_PROYECTO_1-master (3)\PGTA_PROYECTO_1-master\Asterix_Decoder\obj\Debug\netcoreapp3.1\Asterix_Decoder.csproj.GenerateResource.cache
+E:\UNI\4º\Proyectos de gestion de trafico aereo\Versiones Git\V3\PGTA_PROYECTO_1-master (3)\PGTA_PROYECTO_1-master\Asterix_Decoder\obj\Debug\netcoreapp3.1\Asterix_Decoder.GeneratedMSBuildEditorConfig.editorconfig
+E:\UNI\4º\Proyectos de gestion de trafico aereo\Versiones Git\V3\PGTA_PROYECTO_1-master (3)\PGTA_PROYECTO_1-master\Asterix_Decoder\obj\Debug\netcoreapp3.1\Asterix_Decoder.AssemblyInfoInputs.cache
+E:\UNI\4º\Proyectos de gestion de trafico aereo\Versiones Git\V3\PGTA_PROYECTO_1-master (3)\PGTA_PROYECTO_1-master\Asterix_Decoder\obj\Debug\netcoreapp3.1\Asterix_Decoder.AssemblyInfo.cs
+E:\UNI\4º\Proyectos de gestion de trafico aereo\Versiones Git\V3\PGTA_PROYECTO_1-master (3)\PGTA_PROYECTO_1-master\Asterix_Decoder\obj\Debug\netcoreapp3.1\Asterix_Decoder.csproj.CoreCompileInputs.cache
+E:\UNI\4º\Proyectos de gestion de trafico aereo\Versiones Git\V3\PGTA_PROYECTO_1-master (3)\PGTA_PROYECTO_1-master\Asterix_Decoder\obj\Debug\netcoreapp3.1\Asterix_Decoder.dll
+E:\UNI\4º\Proyectos de gestion de trafico aereo\Versiones Git\V3\PGTA_PROYECTO_1-master (3)\PGTA_PROYECTO_1-master\Asterix_Decoder\obj\Debug\netcoreapp3.1\Asterix_Decoder.pdb
+E:\UNI\4º\Proyectos de gestion de trafico aereo\Versiones Git\V3\PGTA_PROYECTO_1-master (3)\PGTA_PROYECTO_1-master\Asterix_Decoder\bin\Debug\netcoreapp3.1\Asterix_Decoder.exe
+E:\UNI\4º\Proyectos de gestion de trafico aereo\Versiones Git\V3\PGTA_PROYECTO_1-master (3)\PGTA_PROYECTO_1-master\Asterix_Decoder\bin\Debug\netcoreapp3.1\Asterix_Decoder.deps.json
+E:\UNI\4º\Proyectos de gestion de trafico aereo\Versiones Git\V3\PGTA_PROYECTO_1-master (3)\PGTA_PROYECTO_1-master\Asterix_Decoder\bin\Debug\netcoreapp3.1\Asterix_Decoder.runtimeconfig.json
+E:\UNI\4º\Proyectos de gestion de trafico aereo\Versiones Git\V3\PGTA_PROYECTO_1-master (3)\PGTA_PROYECTO_1-master\Asterix_Decoder\bin\Debug\netcoreapp3.1\Asterix_Decoder.runtimeconfig.dev.json
+E:\UNI\4º\Proyectos de gestion de trafico aereo\Versiones Git\V3\PGTA_PROYECTO_1-master (3)\PGTA_PROYECTO_1-master\Asterix_Decoder\bin\Debug\netcoreapp3.1\Asterix_Decoder.dll
+E:\UNI\4º\Proyectos de gestion de trafico aereo\Versiones Git\V3\PGTA_PROYECTO_1-master (3)\PGTA_PROYECTO_1-master\Asterix_Decoder\bin\Debug\netcoreapp3.1\Asterix_Decoder.pdb
+E:\UNI\4º\Proyectos de gestion de trafico aereo\Versiones Git\V3\PGTA_PROYECTO_1-master (3)\PGTA_PROYECTO_1-master\Asterix_Decoder\bin\Debug\netcoreapp3.1\Class_Library.dll
+E:\UNI\4º\Proyectos de gestion de trafico aereo\Versiones Git\V3\PGTA_PROYECTO_1-master (3)\PGTA_PROYECTO_1-master\Asterix_Decoder\bin\Debug\netcoreapp3.1\Class_Library.pdb
+E:\UNI\4º\Proyectos de gestion de trafico aereo\Versiones Git\V3\PGTA_PROYECTO_1-master (3)\PGTA_PROYECTO_1-master\Asterix_Decoder\obj\Debug\netcoreapp3.1\Asterix_Decoder.csproj.CopyComplete
+E:\UNI\4º\Proyectos de gestion de trafico aereo\Versiones Git\V3\PGTA_PROYECTO_1-master (3)\PGTA_PROYECTO_1-master\Asterix_Decoder\obj\Debug\netcoreapp3.1\Asterix_Decoder.genruntimeconfig.cache
