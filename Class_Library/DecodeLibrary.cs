@@ -54,9 +54,21 @@ namespace Class_Library
             {
                 if (ones[i] == '1')
                 {
-                    twos = twos.Substring(0, i) + '0' + twos.Substring(i + 1, twos);
+                    twos = twos.Substring(0, i) + '0' + twos.Substring(i + 1, twos.Length - (i + 1));
+                }
+                else
+                {
+                    twos = twos.Substring(0, i) + '1' + twos.Substring(i + 1, twos.Length - (i + 1));
+                    break;
                 }
             }
+
+            if (i == -1)
+            {
+                twos = '1' + twos;
+            }
+
+            return Convert.ToString(twos);
         }
     }
 }
