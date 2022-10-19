@@ -24,10 +24,11 @@ namespace ClassLibrary
             this.path = path;
             this.name = name;
         }
-        List<CAT10> CAT10_Messages_List = new List<CAT10>();  //Initialize the list of CAT10 messages
-        List<CAT21> CAT21_Messages_List = new List<CAT21>();  //Initialize the list of CAT21 messages
-        DataTable CAT10_Table = new DataTable();     //Initialize the datatables of CAT10 messages
-        DataTable CAT21_Table = new DataTable();     //Initialize the datatables of CAT21 messages
+
+        public List<CAT10> CAT10_Messages_List = new List<CAT10>();  //Initialize the list of CAT10 messages
+        public List<CAT21> CAT21_Messages_List = new List<CAT21>();  //Initialize the list of CAT21 messages
+        public DataTable CAT10_Table = new DataTable();     //Initialize the datatables of CAT10 messages
+        public DataTable CAT21_Table = new DataTable();     //Initialize the datatables of CAT21 messages
         public int CAT10_Number_Messages = 0;
         public int CAT21_Number_Messages = 0;
         string Proccess_message;
@@ -67,6 +68,10 @@ namespace ClassLibrary
                     while (Raw_messages[i].Count() > j)
                     {
                         Raw_Single_message_Bin[j] = Convert.ToString(Raw_Single_Message_Byte[j],2);
+                        while (Raw_Single_message_Bin[j].Count() < 8)
+                        {
+                            Raw_Single_message_Bin[j] = 0 + Raw_Single_message_Bin[j];
+                        }
                         j++;
                     }
                     Raw_messages_Bin.Add(Raw_Single_message_Bin);

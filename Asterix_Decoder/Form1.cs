@@ -17,6 +17,7 @@ namespace Asterix_Decoder
     {
         public int FileCount = 0;
         public List<AsterixFile> AsterixFiles = new List<AsterixFile>();
+        
         public Form1()
         {
             InitializeComponent();

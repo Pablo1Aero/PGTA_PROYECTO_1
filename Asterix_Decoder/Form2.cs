@@ -21,7 +21,7 @@ namespace Asterix_Decoder
         private void Form2_Load(object sender, EventArgs e)
         {
             //Message_DataView.DataSource = null;
-            Message_DataView.DataSource = Form1.CAT10_Message_Data_Table;
+            //Message_DataView.DataSource = Form1.CAT10_Message_Data_Table;
             
         }
 

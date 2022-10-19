@@ -7,6 +7,7 @@ namespace Class_Library
 {
     public class CAT10
     {
+        public string[] FSPEC_Return;
 
         public string[] CAT10_Message;   //Objeto tipo lista de bytes (mensage CAT10)
         readonly DecodeLibrary Library;
@@ -16,13 +17,15 @@ namespace Class_Library
             this.Library = Library;
 
 
-            string[] FSPEC_Return = Library.obtainFSPEC(CAT10_Message);
+            FSPEC_Return = Library.obtainFSPEC(CAT10_Message);
             int Position = Convert.ToInt32(FSPEC_Return[0])+1;
             string FSPEC = FSPEC_Return[1];
             {
                 if (FSPEC[0] == '1') { Position = this.Decode_Data_Source_Identifier(Position, CAT10_Message); }
                 if (FSPEC[1] == '1') { Position = this.Decode_MessageType(Position, CAT10_Message); }
                 if (FSPEC[2] == '1') { Position = this.Decode_Target_Report_Descriptor(Position, CAT10_Message); }
+                if (FSPEC[3] == '1') { Position = this.Decode_Measured_Position_Polar(Position, CAT10_Message); }
+                if (FSPEC[4] == '1') { Position = this.Decode_Position_WGS84(Position, CAT10_Message); }
             }
         }
 
@@ -50,7 +53,7 @@ namespace Class_Library
             int Data_Source_Identifier_byte_SAC = Convert.ToInt32(CAT10_Message[Position], 2);
             SAC = Convert.ToString(Data_Source_Identifier_byte_SAC);
             Position++;
-            int Data_Source_Identifier_byte_SIC = Convert.ToInt32(CAT10_Message[Position+1], 2);
+            int Data_Source_Identifier_byte_SIC = Convert.ToInt32(CAT10_Message[Position], 2);
             SIC = Convert.ToString(Data_Source_Identifier_byte_SIC);
             Position++;
 
@@ -58,10 +61,10 @@ namespace Class_Library
         }
         #endregion
 
-        #region Item I010/010  Target Report Descriptor
+        #region Item I010/020  Target Report Descriptor
         //Main structure data
         public string TYP; public string DCR; public string CHN; public string GBS; public string CRT;
-        //First octec data
+        //First octet data
         public string SIM; public string TST; public string RAB; public string LOP; public string TOT;
         //Second octet data
         public string SPI;
@@ -134,6 +137,42 @@ namespace Class_Library
             
             return Position;
         }
-        # endregion
+        #endregion
+
+        #region Item I010/040   Measured Position in Polar Coordinates
+        
+        public string RHO; public string THETA;
+
+        private int Decode_Measured_Position_Polar(int Position, string[] CAT10_Message)
+        {
+            int Measured_Rho = Convert.ToInt32(Convert.ToString(CAT10_Message[Position] + CAT10_Message[Position + 1]), 2);
+            RHO = Convert.ToString(Measured_Rho);
+            Position = Position ++;
+            double Measured_Theta = Convert.ToDouble(Convert.ToInt32(Convert.ToString(CAT10_Message[Position + 1] + CAT10_Message[Position + 2]), 2)) * 0.0055;//(360/(Math.Pow(2, 16)));
+            THETA = Convert.ToString(Measured_Theta);
+            Position = Position + 3;
+
+            return Position;
+        }
+
+        #endregion
+
+        #region I010/041    Position in WGS-84 Coordinates
+
+        public string Lat_WGS84; public string Lon_WGS84;
+
+        private int Decode_Position_WGS84(int Position, string[] CAT10_Message)
+        {
+            string Lat_WGS84_bin = Convert.ToString(CAT10_Message[Position] + CAT10_Message[Position + 1] + CAT10_Message[Position + 2] + CAT10_Message[Position + 3]);
+            string[] Lat_array = Lat_WGS84_bin.Split("");
+            Position = Position + 4;
+            string Lon_WGS84_bin = Convert.ToString(CAT10_Message[Position] + CAT10_Message[Position + 1] + CAT10_Message[Position + 2] + CAT10_Message[Position + 3]);
+            string[] Lon_array = Lon_WGS84_bin.Split("");
+            Position = Position + 4;
+
+            return Position;
+        }
+
+        #endregion
     }
 }

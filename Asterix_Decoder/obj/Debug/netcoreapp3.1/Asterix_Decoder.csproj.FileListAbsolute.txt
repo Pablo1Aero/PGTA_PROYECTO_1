@@ -36,3 +36,4 @@ E:\UNI\4º\Proyectos de gestion de trafico aereo\Versiones Git\V3\PGTA_PROYECTO_
 E:\UNI\4º\Proyectos de gestion de trafico aereo\Versiones Git\V3\PGTA_PROYECTO_1-master (3)\PGTA_PROYECTO_1-master\Asterix_Decoder\bin\Debug\netcoreapp3.1\Class_Library.pdb
 E:\UNI\4º\Proyectos de gestion de trafico aereo\Versiones Git\V3\PGTA_PROYECTO_1-master (3)\PGTA_PROYECTO_1-master\Asterix_Decoder\obj\Debug\netcoreapp3.1\Asterix_Decoder.csproj.CopyComplete
 E:\UNI\4º\Proyectos de gestion de trafico aereo\Versiones Git\V3\PGTA_PROYECTO_1-master (3)\PGTA_PROYECTO_1-master\Asterix_Decoder\obj\Debug\netcoreapp3.1\Asterix_Decoder.genruntimeconfig.cache
+C:\Users\pablo\OneDrive\Escritorio\UNIVERSIDAD\PGTA\PGTA_PROYECTO_1\Asterix_Decoder\obj\Debug\netcoreapp3.1\Asterix_Decoder.Form2.resources
