@@ -161,14 +161,84 @@ namespace Class_Library
 
         public string Lat_WGS84; public string Lon_WGS84;
 
+
         private int Decode_Position_WGS84(int Position, string[] CAT10_Message)
         {
             string Lat_WGS84_bin = Convert.ToString(CAT10_Message[Position] + CAT10_Message[Position + 1] + CAT10_Message[Position + 2] + CAT10_Message[Position + 3]);
-            string[] Lat_array = Lat_WGS84_bin.Split("");
             Position = Position + 4;
             string Lon_WGS84_bin = Convert.ToString(CAT10_Message[Position] + CAT10_Message[Position + 1] + CAT10_Message[Position + 2] + CAT10_Message[Position + 3]);
-            string[] Lon_array = Lon_WGS84_bin.Split("");
             Position = Position + 4;
+
+            if (Lat_WGS84_bin[0] == '0') { Lat_WGS84 = Convert.ToString(Convert.ToInt32(Lat_WGS84_bin)); }
+            if (Lat_WGS84_bin[0] == '1')
+            {
+                string Lat_ones = "", Lat_twos = "";
+                Lat_ones = Lat_twos = "";
+
+                int i;
+
+                for (i = 0; i < Lat_WGS84_bin.Length; i++)
+                {
+                    Lat_ones += flip(Lat_WGS84_bin[i]);
+                }
+
+                Lat_twos = Lat_ones;
+
+                for (i = Lat_WGS84_bin - 1; i >= 0; i--)
+                {
+                    if (Lat_ones[i] == '1')
+                    {
+                        Lat_twos = Lat_twos.Substring(0, i) + '0' + Lat_twos.Substring(i + 1, Lat_twos.Length - (i+1));
+                    }
+                }
+            }
+            if (Lon_WGS84_bin[0] == '0') { Lon_WGS84 = Convert.ToString(Convert.ToInt32(Lon_WGS84_bin)); }
+
+            return Position;
+        }
+
+        #endregion
+
+        #region Item I010/042   Position in Cartesian Co-ordinates
+        
+        public string X_Component; public string Y_Component;
+
+        private int Decode_Cartesian_Position(int Position, string[] CAT10_Message)
+        {
+            string X_Component_bin = Convert.ToString(CAT10_Message[Position] + CAT10_Message[Position + 1]);
+            Position = Position + 2;
+            string Y_Component_bin = Convert.ToString(CAT10_Message[Position] + CAT10_Message[Position + 1]);
+            Position = Position + 2;
+
+            //LSB falta implementar
+
+            return Position;
+        }
+
+        #endregion
+
+        # region Item I010/060  Mode-3/A Code in Octal Representation
+
+        string V; string G; string L; string Mode3_A_reply;
+        private int Decode_Mode_3A(int Position, string[] CAT10_Message)
+        {
+            int Mode_3A_byte_Int = Convert.ToInt32(CAT10_Message[Position]);
+            if (Convert.ToString(CAT10_Message[Position][0]) == "0") { V = "Code validated"; }
+            if (Convert.ToString(CAT10_Message[Position][0]) == "1") { V = "Code not validated"; }
+            if (Convert.ToString(CAT10_Message[Position][1]) == "0") { G = "Default"; }
+            if (Convert.ToString(CAT10_Message[Position][1]) == "1") { G = "Garlbed code"; }
+            if (Convert.ToString(CAT10_Message[Position][2]) == "0") { L = "Mode-3/A code derived from the reply of the transponder"; }
+            if (Convert.ToString(CAT10_Message[Position][2]) == "1") { L = "Mode-3/A code not extracted during the last scan"; }
+
+            //Binary to octet transformation:
+            string Full_Reply_bin = Convert.ToString(CAT10_Message[Position]) + Convert.ToString(CAT10_Message[Position + 1]);
+            int Octet_A_bin = Convert.ToInt32(Convert.ToString(Full_Reply_bin[4] + Full_Reply_bin[5] + Full_Reply_bin[6]),2);
+            int Octet_B_bin = Convert.ToInt32(Convert.ToString(Full_Reply_bin[7] + Full_Reply_bin[8] + Full_Reply_bin[9]),2);
+            int Octet_C_bin = Convert.ToInt32(Convert.ToString(Full_Reply_bin[10] + Full_Reply_bin[11] + Full_Reply_bin[12]),2);
+            int Octet_D_bin = Convert.ToInt32(Convert.ToString(Full_Reply_bin[13] + Full_Reply_bin[14] + Full_Reply_bin[15]),2);
+
+            Mode3_A_reply = Convert.ToString(Octet_A_bin + Octet_B_bin + Octet_C_bin + Octet_D_bin);
+            Position++;
 
             return Position;
         }
