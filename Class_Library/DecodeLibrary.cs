@@ -35,7 +35,7 @@ namespace Class_Library
             return (c == '0') ? '1' : '0';
         }
 
-        public string twos_complement(string BinMessage)
+        public int twos_complement(string BinMessage)
         {
             string ones = "", twos = "";
             ones = twos = "";
@@ -68,7 +68,7 @@ namespace Class_Library
                 twos = '1' + twos;
             }
 
-            return Convert.ToString(twos);
+            return Convert.ToInt32(twos, 2);
         }
     }
 }

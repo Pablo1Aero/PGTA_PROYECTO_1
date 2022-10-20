@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ClassLibrary;
+using Class_Library;
 
 namespace Class_Library
 {
@@ -26,6 +28,8 @@ namespace Class_Library
                 if (FSPEC[2] == '1') { Position = this.Decode_Target_Report_Descriptor(Position, CAT10_Message); }
                 if (FSPEC[3] == '1') { Position = this.Decode_Measured_Position_Polar(Position, CAT10_Message); }
                 if (FSPEC[4] == '1') { Position = this.Decode_Position_WGS84(Position, CAT10_Message); }
+                if (FSPEC[5] == '1') { Position = this.Decode_Cartesian_Position(Position, CAT10_Message); }
+                if (FSPEC[6] == '1') { Position = this.Decode_Mode_3A(Position, CAT10_Message); }
             }
         }
 
@@ -157,7 +161,7 @@ namespace Class_Library
 
         #endregion
 
-        #region I010/041    Position in WGS-84 Coordinates
+        #region Item I010/041    Position in WGS-84 Coordinates
 
         public string Lat_WGS84; public string Lon_WGS84;
 
@@ -172,28 +176,13 @@ namespace Class_Library
             if (Lat_WGS84_bin[0] == '0') { Lat_WGS84 = Convert.ToString(Convert.ToInt32(Lat_WGS84_bin)); }
             if (Lat_WGS84_bin[0] == '1')
             {
-                string Lat_ones = "", Lat_twos = "";
-                Lat_ones = Lat_twos = "";
-
-                int i;
-
-                for (i = 0; i < Lat_WGS84_bin.Length; i++)
-                {
-                    Lat_ones += flip(Lat_WGS84_bin[i]);
-                }
-
-                Lat_twos = Lat_ones;
-
-                for (i = Lat_WGS84_bin - 1; i >= 0; i--)
-                {
-                    if (Lat_ones[i] == '1')
-                    {
-                        Lat_twos = Lat_twos.Substring(0, i) + '0' + Lat_twos.Substring(i + 1, Lat_twos.Length - (i+1));
-                    }
-                }
+                Lat_WGS84 = Convert.ToString(Library.twos_complement(Lat_WGS84_bin) * (180/Math.Pow(2, 32)));
             }
             if (Lon_WGS84_bin[0] == '0') { Lon_WGS84 = Convert.ToString(Convert.ToInt32(Lon_WGS84_bin)); }
-
+            if (Lon_WGS84_bin[0] == '1')
+            {
+                Lon_WGS84 = Convert.ToString(Library.twos_complement(Lon_WGS84_bin) * (180/Math.Pow(2, 32)));
+            }
             return Position;
         }
 
@@ -239,6 +228,91 @@ namespace Class_Library
 
             Mode3_A_reply = Convert.ToString(Octet_A_bin + Octet_B_bin + Octet_C_bin + Octet_D_bin);
             Position++;
+
+            return Position;
+        }
+
+        #endregion
+
+        #region Item I010/090 Flight Level in Binary Representation
+
+        public string Validated = ""; public string Garbled = ""; public string FL = "";
+        
+        private int Decode_Flight_Level(int Position, string[] CAT10_Message)
+        {
+            if (CAT10_Message[Position][0] == '1') { Validated = "Code Validated"; }
+            if (CAT10_Message[Position][0] == '0') { Validated = "Code Not Validated"; }
+            if (CAT10_Message[Position][1] == '1') { Garbled = "Garbled Code"; }
+            if (CAT10_Message[Position][1] == '0') { Garbled = "Default"; }
+
+            string FL_bin = "";
+            
+            for (int i = 2; i < (CAT10_Message[Position] + CAT10_Message[Position+1]).Length; i++)
+            {
+                FL_bin += (CAT10_Message[Position] + CAT10_Message[Position + 1])[i];
+            }
+
+            FL = Convert.ToString(Convert.ToInt32(FL_bin, 2) * 0.25);
+
+            if (FL.Length == 1) { FL = "00" + FL; }
+            if (FL.Length == 2) { FL = "0" + FL; }
+
+            Position = Position + 2;
+
+            return Position;
+        }
+
+        #endregion
+
+        #region Item I010/091 Measured Height
+
+        public string Measured_Height;
+
+        private int Decode_Measured_Height(int Position, string[] CAT10_Message)
+        {
+            Measured_Height = Convert.ToString(Library.twos_complement(CAT10_Message[Position] + CAT10_Message[Position + 1]) * 6.25);
+
+            Position = Position + 2;
+
+            return Position;
+        }
+
+        #endregion
+
+        #region Item I010/131 Amplitude of Primary Plot
+
+        public string PAM = "";
+
+        private int Decode_PAM(int Position, string[] CAT10_Message)
+        {
+            PAM = Convert.ToString(Convert.ToInt32(CAT10_Message[Position]));
+
+            Position++;
+
+            return Position;
+        }
+
+        #endregion
+
+        #region Item I010/140 Time of Day
+
+        public string ToD = "";
+
+        private int Decode_Time_of_Day(int Position, string[] CAT10_Message)
+        {
+            int ToD_seconds = Convert.ToInt32(CAT10_Message[Position] + CAT10_Message[Position + 1] + CAT10_Message[Position + 2]) * (1/128);
+
+            int ToD_minutes = ToD_seconds / 60;
+
+            int ToD_hours = ToD_minutes / 60;
+
+            ToD_minutes = (ToD_minutes % 60);
+
+            ToD_seconds = (ToD_seconds % 60);
+
+            ToD = Convert.ToString(ToD_hours) + ':' + Convert.ToString(ToD_minutes) + ':' + Convert.ToString(ToD_seconds) +  "UTC";
+
+            Position = Position + 3;
 
             return Position;
         }
