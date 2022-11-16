@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -67,7 +67,7 @@ namespace ClassLibrary
                     int j = 0;
                     while (Raw_messages[i].Count() > j)
                     {
-                        Raw_Single_message_Bin[j] = Convert.ToString(Raw_Single_Message_Byte[j],2);
+                        Raw_Single_message_Bin[j] = Convert.ToString(Raw_Single_Message_Byte[j], 2);
                         while (Raw_Single_message_Bin[j].Count() < 8)
                         {
                             Raw_Single_message_Bin[j] = 0 + Raw_Single_message_Bin[j];
@@ -101,7 +101,7 @@ namespace ClassLibrary
                         CAT10_Number_Messages++;
                         CAT10 newCAT10_message = new CAT10(Raw_messages_Bin[i], Library);
                         CAT10_Messages_List.Add(newCAT10_message);
-                    } 
+                    }
                     if (Raw_messages_Str[i][0] == "21") //CAT21
                     {
                         CAT21_Number_Messages++;
@@ -111,13 +111,15 @@ namespace ClassLibrary
                     i++;
                 }
                 return "1";
-            }   
+            }
+
             catch (Exception e)
             {
-                string Error_Text_User = "The binary file" + name + "could not be read";
-                string Error_Message = e.Message;
-                return Error_Message; //Cambiar a Text user
-            }
+               string Error_Text_User = "The binary file" + name + "could not be read";
+               string Error_Message = e.Message;
+               return Error_Message; //Cambiar a Text user
+           }
+           
         }
 
     }

@@ -33,11 +33,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\UNI\\4º\\Proyectos de gestion de trafico aereo\\Versiones Git\\V4\\PGTA_PROYECTO_1-master (4)\\PGTA_PROYECTO_1-master\\Asterix_Decoder\\Asterix_Decoder.csproj",
+      "projectUniqueName": "E:\\UNI\\4º\\Proyectos de gestion de trafico aereo\\Versiones Git\\V5\\PGTA_PROYECTO_1-master (5)\\PGTA_PROYECTO_1-master\\Asterix_Decoder\\Asterix_Decoder.csproj",
       "projectName": "Asterix_Decoder",
-      "projectPath": "E:\\UNI\\4º\\Proyectos de gestion de trafico aereo\\Versiones Git\\V4\\PGTA_PROYECTO_1-master (4)\\PGTA_PROYECTO_1-master\\Asterix_Decoder\\Asterix_Decoder.csproj",
+      "projectPath": "E:\\UNI\\4º\\Proyectos de gestion de trafico aereo\\Versiones Git\\V5\\PGTA_PROYECTO_1-master (5)\\PGTA_PROYECTO_1-master\\Asterix_Decoder\\Asterix_Decoder.csproj",
       "packagesPath": "C:\\Users\\hecto\\.nuget\\packages\\",
-      "outputPath": "E:\\UNI\\4º\\Proyectos de gestion de trafico aereo\\Versiones Git\\V4\\PGTA_PROYECTO_1-master (4)\\PGTA_PROYECTO_1-master\\Asterix_Decoder\\obj\\",
+      "outputPath": "E:\\UNI\\4º\\Proyectos de gestion de trafico aereo\\Versiones Git\\V5\\PGTA_PROYECTO_1-master (5)\\PGTA_PROYECTO_1-master\\Asterix_Decoder\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -59,8 +59,8 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "E:\\UNI\\4º\\Proyectos de gestion de trafico aereo\\Versiones Git\\V4\\PGTA_PROYECTO_1-master (4)\\PGTA_PROYECTO_1-master\\Class_Library\\Class_Library.csproj": {
-              "projectPath": "E:\\UNI\\4º\\Proyectos de gestion de trafico aereo\\Versiones Git\\V4\\PGTA_PROYECTO_1-master (4)\\PGTA_PROYECTO_1-master\\Class_Library\\Class_Library.csproj"
+            "E:\\UNI\\4º\\Proyectos de gestion de trafico aereo\\Versiones Git\\V5\\PGTA_PROYECTO_1-master (5)\\PGTA_PROYECTO_1-master\\Class_Library\\Class_Library.csproj": {
+              "projectPath": "E:\\UNI\\4º\\Proyectos de gestion de trafico aereo\\Versiones Git\\V5\\PGTA_PROYECTO_1-master (5)\\PGTA_PROYECTO_1-master\\Class_Library\\Class_Library.csproj"
             }
           }
         }
