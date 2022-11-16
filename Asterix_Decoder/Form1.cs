@@ -110,10 +110,12 @@ namespace Asterix_Decoder
                     }
                 }
             }
+            
             catch
             {
                 MessageBox.Show("The file selected could not be loaded");
             }
+            
         }
 
 
