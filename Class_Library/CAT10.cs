@@ -176,12 +176,12 @@ namespace Class_Library
             if (Lat_WGS84_bin[0] == '0') { Lat_WGS84 = Convert.ToString(Convert.ToInt32(Lat_WGS84_bin)); }
             if (Lat_WGS84_bin[0] == '1')
             {
-                Lat_WGS84 = Convert.ToString(Library.twos_complement(Lat_WGS84_bin) * (180/Math.Pow(2, 32)));
+                Lat_WGS84 = Convert.ToString(Library.twos_complement(Lat_WGS84_bin) * (180/Math.Pow(2, 31)));
             }
             if (Lon_WGS84_bin[0] == '0') { Lon_WGS84 = Convert.ToString(Convert.ToInt32(Lon_WGS84_bin)); }
             if (Lon_WGS84_bin[0] == '1')
             {
-                Lon_WGS84 = Convert.ToString(Library.twos_complement(Lon_WGS84_bin) * (180/Math.Pow(2, 32)));
+                Lon_WGS84 = Convert.ToString(Library.twos_complement(Lon_WGS84_bin) * (180/Math.Pow(2, 31)));
             }
             return Position;
         }
@@ -300,11 +300,11 @@ namespace Class_Library
 
         private int Decode_Time_of_Day(int Position, string[] CAT10_Message)
         {
-            int ToD_seconds = Convert.ToInt32(CAT10_Message[Position] + CAT10_Message[Position + 1] + CAT10_Message[Position + 2]) * (1/128);
+            double ToD_seconds = Convert.ToInt32(CAT10_Message[Position] + CAT10_Message[Position + 1] + CAT10_Message[Position + 2]) * (1.0/128.0);
 
-            int ToD_minutes = ToD_seconds / 60;
+            double ToD_minutes = ToD_seconds / 60;
 
-            int ToD_hours = ToD_minutes / 60;
+            double ToD_hours = ToD_minutes / 60;
 
             ToD_minutes = (ToD_minutes % 60);
 
