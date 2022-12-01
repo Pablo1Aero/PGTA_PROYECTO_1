@@ -6,6 +6,7 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
+<<<<<<< HEAD
   <ItemGroup>
     <None Remove="r14f2kvd.gs5~" />
   </ItemGroup>
@@ -27,6 +28,29 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+=======
+  <ItemGroup>
+    <None Remove="r14f2kvd.gs5~" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GMap.NET.WinForms" Version="2.1.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+>>>>>>> 8f705e2ef3b1d6ceaa3b154ba170cff589a26e83
   </ItemGroup>
 
 </Project>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
@@ -23,3 +24,30 @@ Global
 		SolutionGuid = {12085FA3-9969-4BF6-8530-2E3B8EA15AA5}
 	EndGlobalSection
 EndGlobal
+=======
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32901.215
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Asterix_Decoder", "Asterix_Decoder\Asterix_Decoder.csproj", "{9BC6F6ED-3688-42C1-8BB8-592C04EF0B22}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9BC6F6ED-3688-42C1-8BB8-592C04EF0B22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BC6F6ED-3688-42C1-8BB8-592C04EF0B22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BC6F6ED-3688-42C1-8BB8-592C04EF0B22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BC6F6ED-3688-42C1-8BB8-592C04EF0B22}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {12085FA3-9969-4BF6-8530-2E3B8EA15AA5}
+	EndGlobalSection
+EndGlobal
+>>>>>>> 8f705e2ef3b1d6ceaa3b154ba170cff589a26e83
