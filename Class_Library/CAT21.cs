@@ -1259,7 +1259,7 @@ namespace Class_Library
 
             TTI = Convert.ToString(Convert.ToInt32(Convert.ToString(CAT21_Message[Position + 3][4]) + Convert.ToString(CAT21_Message[Position + 3][5])));
 
-            TID = Convert.ToString(Convert.ToInt32(Convert.ToSingle(CAT21_Message[Position + 3][6]) + Convert.ToString(CAT21_Message[Position + 3][7]) + CAT21_Message[Position + 4] + CAT21_Message[Position + 5] + CAT21_Message[Position + 6]));
+            TRID = Convert.ToString(Convert.ToInt32(Convert.ToSingle(CAT21_Message[Position + 3][6]) + Convert.ToString(CAT21_Message[Position + 3][7]) + CAT21_Message[Position + 4] + CAT21_Message[Position + 5] + CAT21_Message[Position + 6]));
 
             Position += 7;
 
