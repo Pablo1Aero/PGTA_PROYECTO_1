@@ -160,7 +160,7 @@ namespace ClassLibrary
             T.Columns.Add("Category", typeof(String));
             T.Columns.Add("SAC", typeof(String));
             T.Columns.Add("SIC", typeof(String));
-            T.Columns.Add("Target ID", typeof(String));
+            T.Columns.Add("TargetID", typeof(String));
             T.Columns.Add("Track Number", typeof(String));
             T.Columns.Add("Target Report Descriptor", typeof(String));
             T.Columns.Add("Message Type", typeof(String));
@@ -199,10 +199,10 @@ namespace ClassLibrary
             else { row["SIC"] = "No Data"; }
             if (Message.Target_Identification != null)
             {
-                if (Message.Target_Identification.Replace(" ", "") != "") { row["Target ID"] = Message.Target_Identification; }
-                else { row["Target ID"] = "No Data"; }
+                if (Message.Target_Identification.Replace(" ", "") != "") { row["TargetID"] = Message.Target_Identification; }
+                else { row["TargetID"] = "No Data"; }
             }
-            else { row["Target ID"] = "No Data"; }
+            else { row["TargetID"] = "No Data"; }
             if (Message.TYP != null) { row["Target Report Descriptor"] = "Click to more info"; }
             else { row["Target Report Descriptor"] = "No Data"; }
             if (Message.Message_type != null) { row["Message Type"] = Message.Message_type; }
@@ -228,7 +228,7 @@ namespace ClassLibrary
             if (Message.Lenght != null && Message.Orientation != null && Message.Width != null) { row["Target size and orientation"] = "Lenght: " + Message.Lenght + " Orientation: "+ Message.Orientation + " Width: "+ Message.Width; }
             else { row["Target size and orientation"] = "No Data"; }
             
-            if (Message.Target != null && Message.Address != null) { row["Target Address"] = "Address: " + Message.Address + " Target: " + Message.Target; }
+            if (Message.Target_Address != null) { row["Target Address"] = "Target Address: " + Message.Target_Address ; }
             else { row["Target Address"] = "No Data"; }
             if (Message.NOGO != null && Message.OVL != null && Message.TSV != null && Message.DIV != null && Message.TTF != null) { row["System Status"] = "NOGO: "+ Message.NOGO + " OVL: "+ Message.OVL + " TSV: "+ Message.TSV + " DIV: "+ Message.DIV + " TTF: " + Message.TTF; }
             else { row["System Status"] = "No Data"; }
