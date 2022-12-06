@@ -250,10 +250,10 @@ namespace Class_Library
 
             //Binary to octet transformation:
             string Full_Reply_bin = Convert.ToString(CAT10_Message[Position]) + Convert.ToString(CAT10_Message[Position + 1]);
-            int Octet_A_bin = Convert.ToInt32(Convert.ToString(Full_Reply_bin[4] + Full_Reply_bin[5] + Full_Reply_bin[6], 2));
-            int Octet_B_bin = Convert.ToInt32(Convert.ToString(Full_Reply_bin[7] + Full_Reply_bin[8] + Full_Reply_bin[9], 2));
-            int Octet_C_bin = Convert.ToInt32(Convert.ToString(Full_Reply_bin[10] + Full_Reply_bin[11] + Full_Reply_bin[12], 2));
-            int Octet_D_bin = Convert.ToInt32(Convert.ToString(Full_Reply_bin[13] + Full_Reply_bin[14] + Full_Reply_bin[15], 2));
+            int Octet_A_bin = Convert.ToInt32(string.Concat(Full_Reply_bin[4],Full_Reply_bin[5],Full_Reply_bin[6]),2);
+            int Octet_B_bin = Convert.ToInt32(string.Concat(Full_Reply_bin[7],Full_Reply_bin[8],Full_Reply_bin[9]), 2);
+            int Octet_C_bin = Convert.ToInt32(string.Concat(Full_Reply_bin[10],Full_Reply_bin[11],Full_Reply_bin[12]), 2);
+            int Octet_D_bin = Convert.ToInt32(string.Concat(Full_Reply_bin[13],Full_Reply_bin[14],Full_Reply_bin[15]), 2);
 
             Mode3_A_reply = Convert.ToString(Octet_A_bin + Octet_B_bin + Octet_C_bin + Octet_D_bin);
             Position = Position +2;
@@ -323,26 +323,26 @@ namespace Class_Library
 
         #region Item I010/140 Time of Day
 
-        public string ToD; public int ToD_seconds; public int ToD_minutes; public int ToD_hours; public int sec;
+        public string ToD; public double ToD_seconds; public double ToD_minutes; public double ToD_hours; public double sec;
 
         private int Decode_Time_of_Day(int Position, string[] CAT10_Message)
         {
             //string Probe = Convert.ToString(CAT10_Message[Position] + CAT10_Message[Position + 1] + CAT10_Message[Position + 2]);
-            int ToD_seconds_int = Convert.ToInt32(Convert.ToString(CAT10_Message[Position] + CAT10_Message[Position + 1] + CAT10_Message[Position + 2]),2);
+            double ToD_seconds_int = Convert.ToInt32(Convert.ToString(CAT10_Message[Position] + CAT10_Message[Position + 1] + CAT10_Message[Position + 2]),2);
 
-            ToD_seconds = ToD_seconds_int/128;
+            ToD_seconds = (ToD_seconds_int/128);
 
             ToD_hours = ToD_seconds / 3600;
 
             ToD_minutes = ToD_hours % 60;
 
-            sec = ToD_seconds % 60;
+            sec = Convert.ToInt32(Math.Round((ToD_seconds % 60), 2)*100);
 
             //ToD_minutes = (ToD_minutes % 60);
 
             //ToD_seconds = (ToD_seconds % 60);
 
-            ToD = Convert.ToString(ToD_hours) + ':' + Convert.ToString(ToD_minutes) + ':' + Convert.ToString(sec) + "UTC";
+            ToD = Convert.ToString(Math.Floor(ToD_hours)) + ':' + Convert.ToString(Math.Floor(ToD_minutes)) + ':' + Convert.ToString(sec) + " UTC";
 
             Position = Position + 3;
 
@@ -505,19 +505,17 @@ namespace Class_Library
 
         #region Item I010/220 Target Address Mirar si realmente son un solo variable
 
-        public string Target; public string Address;
+        public string Target_Address;
 
         private int Decode_Target_Address(int Position, string[] CAT10_Message)
         {
-            string Target_bin = Convert.ToString(Convert.ToInt32(CAT10_Message[Position],2));
-            Position = Position + 1;
-            int Address_int = Convert.ToInt32(String.Concat(Convert.ToString(CAT10_Message[Position]) + Convert.ToString(CAT10_Message[Position+1])),2);
-            string hexValue = Address_int.ToString("X");
-            Position = Position + 2;
+            string Probe = String.Concat(CAT10_Message[Position], CAT10_Message[Position + 1], CAT10_Message[Position + 2]);
+            //long TargetAddress_int = Convert.ToInt64(String.Concat(CAT10_Message[Position], CAT10_Message[Position+1], CAT10_Message[Position+2]),16);
+            //string hexValue = TargetAddress_int.ToString("X");
+            Position = Position + 3;
 
-            Target = Convert.ToString(Convert.ToInt32(Target_bin, 16));
-            Address = Convert.ToString(int.Parse(hexValue, System.Globalization.NumberStyles.HexNumber));
-
+            //Target_Address = Convert.ToString(int.Parse(hexValue, System.Globalization.NumberStyles.HexNumber));
+            Target_Address = "a";
             return Position;
         }
         #endregion

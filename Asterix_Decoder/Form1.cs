@@ -22,15 +22,31 @@ namespace Asterix_Decoder
 {
     public partial class Form1 : Form
     {
-        GMarkerGoogle Marker;
-        GMapOverlay GMapOverlay;
+        GMarkerGoogle Marker_MLAT;
+        GMapOverlay GMapOverlay_MLAT;
+        GMarkerGoogle Marker_SMR;
+        GMapOverlay GMapOverlay_SMR;
+
+        DataTable DataTable_AsterixFile;
 
         public int FileCount = 0;
         public List<AsterixFile> AsterixFiles = new List<AsterixFile>();
         public List<CAT10> Messages_List_CAT10;
         public string Start_Simulation_time;
         public DecodeLibrary Library = new DecodeLibrary();
-        public int Actual_Time;
+        public double Actual_Time;
+        CoordinatesWGS84 PositionWGS84_SMR = new CoordinatesWGS84();
+        CoordinatesWGS84 PositionWGS84_MLAT = new CoordinatesWGS84();
+        List<MapPoints> points = new List<MapPoints>();
+        List<MapPoints> List_points_SMR = new List<MapPoints>();
+        List<MapPoints> List_points_MLAT = new List<MapPoints>();
+        List<MapPoints> List_points_ADSB;
+        List<PointLatLng> List_MapPoints;
+        List<PointLatLng> List_MapPoints_SMR;
+        List<PointLatLng> List_MapPoints_MLAT;
+        List<PointLatLng> List_MapPoints_ADSB;
+
+        int Previous_Index;
 
         public Form1()
         {
@@ -41,15 +57,15 @@ namespace Asterix_Decoder
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Load_Asterix_Btn = new System.Windows.Forms.Button();
             this.Read_Asterix_Btn = new System.Windows.Forms.Button();
             this.openFileDialogAsterix = new System.Windows.Forms.OpenFileDialog();
             this.Selector_Archivo = new System.Windows.Forms.ComboBox();
             this.DGV = new System.Windows.Forms.DataGridView();
             this.Data_table_panel = new System.Windows.Forms.Panel();
-            this.Cell_Display = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.Search_textBox = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.Load_File_Panel = new System.Windows.Forms.Panel();
             this.progressBarLoadFile = new System.Windows.Forms.ProgressBar();
@@ -58,6 +74,9 @@ namespace Asterix_Decoder
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.Simulation_Button = new System.Windows.Forms.Button();
             this.Simulation_Panel = new System.Windows.Forms.Panel();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.SMR_filter = new System.Windows.Forms.CheckBox();
+            this.MLAT_filter = new System.Windows.Forms.CheckBox();
             this.Actual_Time_Label = new System.Windows.Forms.Label();
             this.Start_Time_Label = new System.Windows.Forms.Label();
             this.Reset_Simulation_Button = new System.Windows.Forms.Button();
@@ -106,9 +125,28 @@ namespace Asterix_Decoder
             // 
             // DGV
             // 
+            this.DGV.AllowDrop = true;
             this.DGV.AllowUserToOrderColumns = true;
+            this.DGV.AllowUserToResizeRows = false;
             this.DGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.DGV.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.DGV.ColumnHeadersHeight = 29;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DGV.DefaultCellStyle = dataGridViewCellStyle2;
             this.DGV.GridColor = System.Drawing.SystemColors.MenuHighlight;
             this.DGV.Location = new System.Drawing.Point(22, 87);
             this.DGV.Name = "DGV";
@@ -116,16 +154,15 @@ namespace Asterix_Decoder
             this.DGV.RowTemplate.Height = 29;
             this.DGV.RowTemplate.ReadOnly = true;
             this.DGV.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.DGV.Size = new System.Drawing.Size(1586, 669);
+            this.DGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.DGV.Size = new System.Drawing.Size(1586, 757);
             this.DGV.TabIndex = 4;
             this.DGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_CellClick);
             // 
             // Data_table_panel
             // 
             this.Data_table_panel.BackColor = System.Drawing.SystemColors.InfoText;
-            this.Data_table_panel.Controls.Add(this.Cell_Display);
-            this.Data_table_panel.Controls.Add(this.button2);
-            this.Data_table_panel.Controls.Add(this.textBox1);
+            this.Data_table_panel.Controls.Add(this.Search_textBox);
             this.Data_table_panel.Controls.Add(this.button1);
             this.Data_table_panel.Controls.Add(this.DGV);
             this.Data_table_panel.Location = new System.Drawing.Point(260, 12);
@@ -133,28 +170,13 @@ namespace Asterix_Decoder
             this.Data_table_panel.Size = new System.Drawing.Size(1630, 866);
             this.Data_table_panel.TabIndex = 5;
             // 
-            // Cell_Display
+            // Search_textBox
             // 
-            this.Cell_Display.Location = new System.Drawing.Point(22, 803);
-            this.Cell_Display.Name = "Cell_Display";
-            this.Cell_Display.Size = new System.Drawing.Size(1586, 27);
-            this.Cell_Display.TabIndex = 8;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(1514, 22);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(94, 29);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "Search";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(849, 24);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(646, 27);
-            this.textBox1.TabIndex = 6;
+            this.Search_textBox.Location = new System.Drawing.Point(1154, 24);
+            this.Search_textBox.Name = "Search_textBox";
+            this.Search_textBox.Size = new System.Drawing.Size(454, 27);
+            this.Search_textBox.TabIndex = 6;
+            this.Search_textBox.TextChanged += new System.EventHandler(this.Search_textBox_TextChanged);
             // 
             // button1
             // 
@@ -222,6 +244,9 @@ namespace Asterix_Decoder
             // Simulation_Panel
             // 
             this.Simulation_Panel.BackColor = System.Drawing.SystemColors.InfoText;
+            this.Simulation_Panel.Controls.Add(this.checkedListBox1);
+            this.Simulation_Panel.Controls.Add(this.SMR_filter);
+            this.Simulation_Panel.Controls.Add(this.MLAT_filter);
             this.Simulation_Panel.Controls.Add(this.Actual_Time_Label);
             this.Simulation_Panel.Controls.Add(this.Start_Time_Label);
             this.Simulation_Panel.Controls.Add(this.Reset_Simulation_Button);
@@ -233,6 +258,44 @@ namespace Asterix_Decoder
             this.Simulation_Panel.Name = "Simulation_Panel";
             this.Simulation_Panel.Size = new System.Drawing.Size(1630, 866);
             this.Simulation_Panel.TabIndex = 9;
+            // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.BackColor = System.Drawing.SystemColors.InfoText;
+            this.checkedListBox1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Items.AddRange(new object[] {
+            "x1",
+            "x2",
+            "x10",
+            "x0.5"});
+            this.checkedListBox1.Location = new System.Drawing.Point(1192, 288);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(60, 92);
+            this.checkedListBox1.TabIndex = 13;
+            this.checkedListBox1.SelectedIndexChanged += new System.EventHandler(this.checkedListBox1_SelectedIndexChanged_1);
+            // 
+            // SMR_filter
+            // 
+            this.SMR_filter.AutoSize = true;
+            this.SMR_filter.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.SMR_filter.Location = new System.Drawing.Point(1192, 446);
+            this.SMR_filter.Name = "SMR_filter";
+            this.SMR_filter.Size = new System.Drawing.Size(61, 24);
+            this.SMR_filter.TabIndex = 11;
+            this.SMR_filter.Text = "SMR";
+            this.SMR_filter.UseVisualStyleBackColor = true;
+            // 
+            // MLAT_filter
+            // 
+            this.MLAT_filter.AutoSize = true;
+            this.MLAT_filter.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.MLAT_filter.Location = new System.Drawing.Point(1192, 416);
+            this.MLAT_filter.Name = "MLAT_filter";
+            this.MLAT_filter.Size = new System.Drawing.Size(68, 24);
+            this.MLAT_filter.TabIndex = 10;
+            this.MLAT_filter.Text = "MLAT";
+            this.MLAT_filter.UseVisualStyleBackColor = true;
             // 
             // Actual_Time_Label
             // 
@@ -261,6 +324,7 @@ namespace Asterix_Decoder
             this.Reset_Simulation_Button.TabIndex = 4;
             this.Reset_Simulation_Button.Text = "Reset";
             this.Reset_Simulation_Button.UseVisualStyleBackColor = true;
+            this.Reset_Simulation_Button.Click += new System.EventHandler(this.Reset_Simulation_Button_Click);
             // 
             // label1
             // 
@@ -268,12 +332,12 @@ namespace Asterix_Decoder
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label1.Location = new System.Drawing.Point(1195, 176);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 20);
+            this.label1.Size = new System.Drawing.Size(0, 20);
             this.label1.TabIndex = 2;
-            this.label1.Text = "label1";
             // 
             // Start_Simulation_Button
             // 
+            this.Start_Simulation_Button.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Start_Simulation_Button.Location = new System.Drawing.Point(1195, 75);
             this.Start_Simulation_Button.Name = "Start_Simulation_Button";
             this.Start_Simulation_Button.Size = new System.Drawing.Size(94, 29);
@@ -285,6 +349,7 @@ namespace Asterix_Decoder
             // gMapControl1
             // 
             this.gMapControl1.Bearing = 0F;
+            this.gMapControl1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.gMapControl1.CanDragMap = true;
             this.gMapControl1.EmptyTileColor = System.Drawing.Color.Navy;
             this.gMapControl1.GrayScaleMode = false;
@@ -322,12 +387,12 @@ namespace Asterix_Decoder
             // 
             this.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.ClientSize = new System.Drawing.Size(1902, 1033);
-            this.Controls.Add(this.Simulation_Panel);
             this.Controls.Add(this.Simulation_Button);
             this.Controls.Add(this.Load_File_Button);
             this.Controls.Add(this.Data_Table_Button);
             this.Controls.Add(this.Data_table_panel);
             this.Controls.Add(this.Load_File_Panel);
+            this.Controls.Add(this.Simulation_Panel);
             this.Name = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load_1);
@@ -390,11 +455,10 @@ namespace Asterix_Decoder
                 progressBarLoadFile.Step = 1;
                 progressBarLoadFile.Style = ProgressBarStyle.Continuous;
                 DataTable Return = AsterixFiles[index].ReadFile(AsterixFiles[index].path, AsterixFiles[index].name);
+                DataTable_AsterixFile = Return;
                 //MessageBox.Show(Return);             
 
                 DGV.DataSource = Return;
-
-
             }
             catch (Exception)
             { 
@@ -411,6 +475,8 @@ namespace Asterix_Decoder
         {
             Data_table_panel.Visible = false;
             Load_File_Panel.Visible = true;
+
+            
         }
         private void set_Messages_List(List<CAT10> L)
         {
@@ -439,11 +505,15 @@ namespace Asterix_Decoder
         }
 
         private void DGV_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            DataGridView DataGrid = new DataGridView();
-            DataGrid = DGV;         
+        {   
             Cell_Display.Text = DGV.CurrentRow.Cells[e.ColumnIndex].Value.ToString();
+            if (Previous_Index != null)
+            {
+                DGV.Rows[Previous_Index].Height = 29;
+            }
             DGV.CurrentRow.Cells[e.ColumnIndex].Style.WrapMode = DataGridViewTriState.True;
+            Previous_Index = e.RowIndex;
+
             //DGV.CurrentRow.Cells[e.ColumnIndex].Style.Format = DGV.CurrentRow.Cells[e.ColumnIndex].PreferredSize.Height;
         }
 
@@ -511,6 +581,9 @@ namespace Asterix_Decoder
             Data_table_panel.Visible = false;
             Load_File_Panel.Visible = false;
             Simulation_Panel.Visible = true;
+            checkedListBox1.SelectedIndex = 0;
+
+
             gMapControl1.DragButton = MouseButtons.Left;
             gMapControl1.CanDragMap = true;
             gMapControl1.MapProvider = GMapProviders.GoogleMap;
@@ -522,75 +595,129 @@ namespace Asterix_Decoder
             Start_Simulation_time = Messages_List_CAT10[0].ToD;
             Start_Time_Label.Text = Start_Simulation_time;
             Actual_Time = Messages_List_CAT10[0].ToD_seconds;
-            GMapOverlay = new GMapOverlay("Marker");
+            GMapOverlay_MLAT = new GMapOverlay("Markers");
+            GMapOverlay_SMR = new GMapOverlay("Markers");
+            PositionWGS84_SMR.Lat = 0.72074450650363;
+            PositionWGS84_SMR.Lon = 0.036566640419238002901;
+            PositionWGS84_MLAT.Lat = 0.72076971691201;
+            PositionWGS84_MLAT.Lon = 0.03627574735274;
+            GMapOverlay_MLAT.Clear();
+            GMapOverlay_SMR.Clear();
+
+            int i = 0;
+            while (Messages_List_CAT10.Count > i)
+            {
+    
+                if ((Messages_List_CAT10[i].Lat_WGS84 != null && Messages_List_CAT10[i].Lon_WGS84 != null) || (Messages_List_CAT10[i].X_Component != null && Messages_List_CAT10[i].Y_Component != null))
+                {
+                    if (Messages_List_CAT10[i].SIC == "7") //SMR
+                    {
+                        points.Add(Create_ActualPosition_Marker(Convert.ToInt32(Messages_List_CAT10[i].X_Component), Convert.ToInt32(Messages_List_CAT10[i].Y_Component), PositionWGS84_SMR, Messages_List_CAT10[i].SIC, Messages_List_CAT10[i].SAC, Messages_List_CAT10[i].Target_Identification, Messages_List_CAT10[i].ToD_seconds, Messages_List_CAT10[i].Track_Number));
+                        List_points_SMR.Add(Create_ActualPosition_Marker(Convert.ToInt32(Messages_List_CAT10[i].X_Component), Convert.ToInt32(Messages_List_CAT10[i].Y_Component), PositionWGS84_SMR, Messages_List_CAT10[i].SIC, Messages_List_CAT10[i].SAC, Messages_List_CAT10[i].Target_Identification, Messages_List_CAT10[i].ToD_seconds, Messages_List_CAT10[i].Track_Number));
+                    }
+                    if (Messages_List_CAT10[i].SIC == "107")//MLAT
+                    {
+                        points.Add(Create_ActualPosition_Marker(Convert.ToInt32(Messages_List_CAT10[i].X_Component), Convert.ToInt32(Messages_List_CAT10[i].Y_Component), PositionWGS84_MLAT, Messages_List_CAT10[i].SIC, Messages_List_CAT10[i].SAC, Messages_List_CAT10[i].Target_Identification, Messages_List_CAT10[i].ToD_seconds, Messages_List_CAT10[i].Track_Number));
+                        List_points_MLAT.Add(Create_ActualPosition_Marker(Convert.ToInt32(Messages_List_CAT10[i].X_Component), Convert.ToInt32(Messages_List_CAT10[i].Y_Component), PositionWGS84_SMR, Messages_List_CAT10[i].SIC, Messages_List_CAT10[i].SAC, Messages_List_CAT10[i].Target_Identification, Messages_List_CAT10[i].ToD_seconds, Messages_List_CAT10[i].Track_Number));
+                    }
+                    if (Messages_List_CAT10[i].SIC == "219")//ADSB
+                    {
+
+                    }
+                    Messages_List_CAT10.RemoveAt(i);
+                }
+                i++;
+            }
+              
+
         }
 
         private void Start_Simulation_Button_Click(object sender, EventArgs e)
         {
             timer1.Start();
-            timer1.Interval = 1000;
             Start_Simulation_Button.Visible = false;
             Stop_Simulation_Button.Visible = true;
+            if (checkedListBox1.SelectedItem.ToString() == "x1") { timer1.Interval = 1000; }
+            if (checkedListBox1.SelectedItem.ToString() == "x2") { timer1.Interval = 500; }
+            if (checkedListBox1.SelectedItem.ToString() == "x10") { timer1.Interval = 10; }
+            if (checkedListBox1.SelectedItem.ToString() == "x0.5") { timer1.Interval = 2000; }
+
 
         }
 
         int Timer_Count;
+        int i;
+        int MarkerCount;
         private void timer1_Tick(object sender, EventArgs e)
         {
-            try
+            try 
             {
-
                 Timer_Count++;
-                label1.Text = Convert.ToString(Timer_Count);
-                if (timer1.Interval == 1000)
+                label1.Text = Convert.ToString(Timer_Count);   
+                Actual_Time = Actual_Time + 1;
+                while (points.Count > i)
                 {
-                    
-                    int i = 0;
-                    while (Messages_List_CAT10.Count > i)
+                    if (points[i].get_SIC() == "107" && MLAT_filter.Checked == true)
                     {
-
-                        if (Messages_List_CAT10[i].ToD_seconds == Actual_Time)
+                        if (Math.Abs(points[i].get_time() - Actual_Time) <= 2)
                         {
-                            if ((Messages_List_CAT10[i].Lat_WGS84 != null && Messages_List_CAT10[i].Lon_WGS84 != null) || (Messages_List_CAT10[i].X_Component != null && Messages_List_CAT10[i].Y_Component != null))
+                            int h = 0;
+                            while (GMapOverlay_MLAT.Markers.Count() > h)
                             {
-                                if (Messages_List_CAT10[i].SIC == "7") //SMR
+                                try
                                 {
-                                    CoordinatesWGS84 PositionWGS84 = new CoordinatesWGS84();
-                                    PositionWGS84.Lat = 0.72074450650363;
-                                    PositionWGS84.Lon = 0.036566640419238002901;
-                                    Create_ActualPosition_Marker(Convert.ToInt32(Messages_List_CAT10[i].X_Component), Convert.ToInt32(Messages_List_CAT10[i].Y_Component), PositionWGS84);
+                                    if (Convert.ToString(GMapOverlay_MLAT.Markers[h].ToolTipText) == points[i].get_Track_Number()) 
+                                    {
+                                        GMapOverlay_MLAT.Markers.RemoveAt(h);
+                                    }
+                                    h++;
                                 }
-                                if (Messages_List_CAT10[i].SIC == "107")//MLAT
+                                catch
                                 {
-                                    CoordinatesWGS84 PositionWGS84 = new CoordinatesWGS84();
-                                    PositionWGS84.Lat = 0.72076971691201;
-                                    PositionWGS84.Lon = 0.03627574735274;
-                                    Create_ActualPosition_Marker(Convert.ToInt32(Messages_List_CAT10[i].X_Component), Convert.ToInt32(Messages_List_CAT10[i].Y_Component), PositionWGS84);
+                                    h++;
                                 }
-                                if (Messages_List_CAT10[i].SIC == "219")//ADSB
-                                {
-                                    
-                                }
-                                Messages_List_CAT10.RemoveAt(i);
-                                //GMapOverlay.Markers.Clear();
                             }
-                        }                                            
-                        i++;
+                            Marker_MLAT = new GMarkerGoogle(points[i].get_point(), GMarkerGoogleType.red);
+                            GMapOverlay_MLAT.Markers.Add(Marker_MLAT);
+
+                            Marker_MLAT.ToolTipMode = MarkerTooltipMode.OnMouseOver;
+                            gMapControl1.Overlays.Add(GMapOverlay_MLAT);
+                            Marker_MLAT.ToolTipText = points[i].get_Track_Number();
+                            MarkerCount++;
+                            //Marker_MLAT.ToolTipText = String.Format(points[i].get_TargetID());
+                          
+                        }
+                    }                                                       
+                    
+                    if (points[i].get_SIC() == "7" && SMR_filter.Checked == true)
+                    {
+                        if (Math.Abs(points[i].get_time() - Actual_Time) < 2)
+                        {
+                            Marker_SMR = new GMarkerGoogle(points[i].get_point(), GMarkerGoogleType.red);
+                            GMapOverlay_MLAT.Markers.Add(Marker_SMR);
+
+                            Marker_SMR.ToolTipMode = MarkerTooltipMode.OnMouseOver;
+                            gMapControl1.Overlays.Add(GMapOverlay_SMR);
+                            MarkerCount++;
+                            //Marker_MLAT.ToolTipText = String.Format(points[i].get_TargetID());
+                        }
                     }
-                    Actual_Time = Actual_Time + 1;
-                }
+                    if (SMR_filter.Checked == false) {GMapOverlay_SMR.Clear(); }
+
+
+                    if (Math.Abs(points[i].get_time() - Actual_Time) > 2)
+                    {
+                        break;
+                    }
+                    i++;
+                }              
                 Actual_Time_Label.Text = Library.ToD_Calc(Actual_Time);
-                //Añadir lo mismo para cada velocidad de simulacion
-                //Messages_List_CAT10[Timer_Count].
-
             }
-
             catch
             {
 
             }
         }
-
         private void Stop_Simulation_Button_Click(object sender, EventArgs e)
         {
                        
@@ -608,20 +735,56 @@ namespace Asterix_Decoder
             PointLatLng position = new PointLatLng(LatLng.Lat * 180 / Math.PI, LatLng.Lon * 180 / Math.PI);
             return position;
         }
-
-        private void Create_ActualPosition_Marker(int x,int y, CoordinatesWGS84 pos)
+        private MapPoints Create_ActualPosition_Marker(int x,int y, CoordinatesWGS84 pos,string SIC, string SAC, string Target_ID, double Time,string TrackNumber)
         {
             //Marker
-            PointLatLng Map_Point = Convert_To_LatLngPoint(x, y, pos);
-            Marker = new GMarkerGoogle(Map_Point, GMarkerGoogleType.red);
-            GMapOverlay.Markers.Add(Marker);
+            PointLatLng Google_Map_Point = Convert_To_LatLngPoint(x, y, pos);
+            double Lat = Google_Map_Point.Lat;
+            double Lon = Google_Map_Point.Lng;
+            MapPoints MapPoint = new MapPoints(Lat,Lon,Time,SIC,SAC,Target_ID,Google_Map_Point,TrackNumber);
+            
+            //Marker = new GMarkerGoogle(Map_Point, GMarkerGoogleType.red);
+            //GMapOverlay.Markers.Add(Marker);
 
             //Tooltip text markers
-            Marker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
-            Marker.ToolTipText = String.Format(Convert.ToString(Map_Point.Lat), Convert.ToString(Map_Point.Lng));
+            //Marker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
+            //Marker.ToolTipText = String.Format(Convert.ToString(Map_Point.Lat), Convert.ToString(Map_Point.Lng));
+
+            return MapPoint;
+            //MapPoints NewPoint = new MapPoints(Map_Point.Lat, Map_Point.Lng, Time, SIC,SAC,Target_ID);
+            //NewPoint.ADD_to_Points_List();
+
 
             //Add map and marker
-            gMapControl1.Overlays.Add(GMapOverlay);
+            //gMapControl1.Overlays.Add(GMapOverlay);
+        }
+        private void Reset_Simulation_Button_Click(object sender, EventArgs e)
+        {
+            GMapOverlay_MLAT.Clear();
+            timer1.Stop();
+            Stop_Simulation_Button.Visible = false;
+            Start_Simulation_Button.Visible = true;
+            i = 0;
+            Actual_Time = Messages_List_CAT10[0].ToD_seconds;
+            Actual_Time_Label.Text = Library.ToD_Calc(Actual_Time);
+        }
+        private void checkedListBox1_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            int iSelectedIndex = checkedListBox1.SelectedIndex;
+            if (iSelectedIndex == -1)
+                return;
+            for (int iIndex = 0; iIndex < checkedListBox1.Items.Count; iIndex++)
+                checkedListBox1.SetItemCheckState(iIndex, CheckState.Unchecked);
+            checkedListBox1.SetItemCheckState(iSelectedIndex, CheckState.Checked);
+            timer1.Stop();
+        }
+
+
+        private void Search_textBox_TextChanged(object sender, EventArgs e)
+        {
+            DataView dv = DataTable_AsterixFile.DefaultView;
+            dv.RowFilter = "TargetID LIKE '" + Search_textBox.Text + "%'";
+            DGV.DataSource = dv;
         }
     }
     

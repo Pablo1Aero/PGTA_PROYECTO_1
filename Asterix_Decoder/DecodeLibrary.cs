@@ -171,9 +171,9 @@ namespace Class_Library
             return Character;
         }
 
-        public string ToD_Calc(int ToD_seconds)
+        public string ToD_Calc(double ToD_seconds)
         {
-            int ToD_minutes; int ToD_hours; int sec;
+            double ToD_minutes; double ToD_hours; double sec;
 
             ToD_hours = ToD_seconds / 3600;
 
@@ -181,7 +181,7 @@ namespace Class_Library
 
             sec = ToD_seconds % 60;
 
-            string Tod_string = ToD_hours + ":" + ToD_minutes + ":" + sec +"UTC";
+            string Tod_string = Convert.ToInt32(ToD_hours) + ":" + Convert.ToInt32(ToD_minutes) + ":" + Convert.ToInt32(sec) + "UTC";
             return Tod_string;
         }
     }
