@@ -13,11 +13,11 @@ namespace Class_Library
         public string[] FSPEC_Return;
 
         public string[] CAT10_Message;   //Objeto tipo lista de bytes (mensage CAT10)
-        readonly DecodeLibrary Library;       
+        readonly DecodeLibrary Library;
         public CAT10(string[] CAT10_Message, DecodeLibrary Library)
         {
             this.CAT10_Message = CAT10_Message;
-            this.Library = Library;        
+            this.Library = Library;
 
             FSPEC_Return = Library.obtainFSPEC(CAT10_Message);
             int Position = Convert.ToInt32(FSPEC_Return[0]) + 1;
@@ -49,7 +49,7 @@ namespace Class_Library
                     if (FSPEC[19] == '1') { Position = this.Decode_Measured_Height(Position, CAT10_Message); }
                     if (FSPEC[20] == '1') { Position = this.Decode_Size_Orientation(Position, CAT10_Message); }
                     if (FSPEC[21] == '1') { Position = this.Decode_System_Status(Position, CAT10_Message); }
-                    if (FSPEC[22] == '1') { Position = this.Decode_Pre_Programmed_Message(Position, CAT10_Message); }             
+                    if (FSPEC[22] == '1') { Position = this.Decode_Pre_Programmed_Message(Position, CAT10_Message); }
 
                     if (FSPEC.Length > 24)
                     {
@@ -63,12 +63,12 @@ namespace Class_Library
         }
 
         public string CAT = "10";
-        
-        # region Item I010/000 Message Type
+
+        #region Item I010/000 Message Type
         public string Message_type;
         private int Decode_MessageType(int Position, string[] CAT10_Message)
         {
-            int Message_Type_byte_Int = Convert.ToInt32(CAT10_Message[Position],2);
+            int Message_Type_byte_Int = Convert.ToInt32(CAT10_Message[Position], 2);
             if (Message_Type_byte_Int == 1) { Message_type = "Target Report"; }
             if (Message_Type_byte_Int == 2) { Message_type = "Start of Update Cycle"; }
             if (Message_Type_byte_Int == 3) { Message_type = "Periodic Status Message"; }
@@ -203,15 +203,15 @@ namespace Class_Library
             string Lon_WGS84_bin = Convert.ToString(CAT10_Message[Position] + CAT10_Message[Position + 1] + CAT10_Message[Position + 2] + CAT10_Message[Position + 3]);
             Position = Position + 4;
 
-            if (Lat_WGS84_bin[0] == '0') { Lat_WGS84 = Convert.ToString(Convert.ToInt32(Lat_WGS84_bin,2) * (180 / Math.Pow(2, 32))); }
-            if (Lat_WGS84_bin[0] == '1') { Lat_WGS84 = Convert.ToString(Library.twos_complement(Lat_WGS84_bin) * (180 / Math.Pow(2, 32))); }           
-            if (Lon_WGS84_bin[0] == '0') { Lon_WGS84 = Convert.ToString(Convert.ToInt32(Lon_WGS84_bin,2) * (180 / Math.Pow(2, 32))); }
-            if (Lon_WGS84_bin[0] == '1') { Lon_WGS84 = Convert.ToString(Library.twos_complement(Lon_WGS84_bin) * (180 / Math.Pow(2, 32))); }
+            if (Lat_WGS84_bin[0] == '0') { Lat_WGS84 = Convert.ToString(Convert.ToInt32(Lat_WGS84_bin, 2) * (180 / Math.Pow(2, 32))); }
+            if (Lat_WGS84_bin[0] == '1') { Lat_WGS84 = Convert.ToString("-" + Library.twos_complement(Lat_WGS84_bin) * (180 / Math.Pow(2, 32))); }
+            if (Lon_WGS84_bin[0] == '0') { Lon_WGS84 = Convert.ToString(Convert.ToInt32(Lon_WGS84_bin, 2) * (180 / Math.Pow(2, 32))); }
+            if (Lon_WGS84_bin[0] == '1') { Lon_WGS84 = Convert.ToString("-" + Library.twos_complement(Lon_WGS84_bin) * (180 / Math.Pow(2, 32))); }
 
             return Position;
         }
-        
-        #endregion 
+
+        #endregion
 
         #region Item I010/042 Position in Cartesian Co-ordinates
 
@@ -224,10 +224,10 @@ namespace Class_Library
             string Y_Component_bin = Convert.ToString(CAT10_Message[Position] + CAT10_Message[Position + 1]);
             Position = Position + 2;
 
-            if (X_Component_bin[0] == '0') { X_Component = Convert.ToString(Convert.ToInt32(X_Component_bin,2)); }
-            if (X_Component_bin[0] == '1') { X_Component = Convert.ToString("-"+Library.twos_complement(X_Component_bin)); }
+            if (X_Component_bin[0] == '0') { X_Component = Convert.ToString(Convert.ToInt32(X_Component_bin, 2)); }
+            if (X_Component_bin[0] == '1') { X_Component = Convert.ToString("-" + Library.twos_complement(X_Component_bin)); }
             if (Y_Component_bin[0] == '0') { Y_Component = Convert.ToString(Convert.ToInt32(Y_Component_bin, 2)); }
-            if (Y_Component_bin[0] == '1') { Y_Component = Convert.ToString("-"+Library.twos_complement(Y_Component_bin)); }
+            if (Y_Component_bin[0] == '1') { Y_Component = Convert.ToString("-" + Library.twos_complement(Y_Component_bin)); }
 
 
             return Position;
@@ -250,13 +250,13 @@ namespace Class_Library
 
             //Binary to octet transformation:
             string Full_Reply_bin = Convert.ToString(CAT10_Message[Position]) + Convert.ToString(CAT10_Message[Position + 1]);
-            int Octet_A_bin = Convert.ToInt32(Convert.ToString(Full_Reply_bin[4] + Full_Reply_bin[5] + Full_Reply_bin[6], 2));
-            int Octet_B_bin = Convert.ToInt32(Convert.ToString(Full_Reply_bin[7] + Full_Reply_bin[8] + Full_Reply_bin[9], 2));
-            int Octet_C_bin = Convert.ToInt32(Convert.ToString(Full_Reply_bin[10] + Full_Reply_bin[11] + Full_Reply_bin[12], 2));
-            int Octet_D_bin = Convert.ToInt32(Convert.ToString(Full_Reply_bin[13] + Full_Reply_bin[14] + Full_Reply_bin[15], 2));
+            int Octet_A_bin = Convert.ToInt32(string.Concat(Full_Reply_bin[4], Full_Reply_bin[5], Full_Reply_bin[6]), 2);
+            int Octet_B_bin = Convert.ToInt32(string.Concat(Full_Reply_bin[7], Full_Reply_bin[8], Full_Reply_bin[9]), 2);
+            int Octet_C_bin = Convert.ToInt32(string.Concat(Full_Reply_bin[10], Full_Reply_bin[11], Full_Reply_bin[12]), 2);
+            int Octet_D_bin = Convert.ToInt32(string.Concat(Full_Reply_bin[13], Full_Reply_bin[14], Full_Reply_bin[15]), 2);
 
-            Mode3_A_reply = Convert.ToString(Octet_A_bin + Octet_B_bin + Octet_C_bin + Octet_D_bin);
-            Position = Position +2;
+            Mode3_A_reply = Convert.ToString(Octet_A_bin) + Convert.ToString(Octet_B_bin) + Convert.ToString(Octet_C_bin) + Convert.ToString(Octet_D_bin);
+            Position = Position + 2;
 
             return Position;
         }
@@ -276,8 +276,8 @@ namespace Class_Library
 
             string Flight_level_bin = Convert.ToString(String.Concat(CAT10_Message[Position][2], CAT10_Message[Position][3], CAT10_Message[Position][4], CAT10_Message[Position][5], CAT10_Message[Position][6], CAT10_Message[Position][7], CAT10_Message[Position + 1]));
             int FL_int = 0;
-            if (Convert.ToString(Flight_level_bin[0]) == "0") { FL_int = Convert.ToInt32(Flight_level_bin,2); }
-            if (Convert.ToString(Flight_level_bin[0]) == "1") { FL_int = Library.twos_complement(Flight_level_bin); }
+            if (Convert.ToString(Flight_level_bin[0]) == "0") { FL_int = Convert.ToInt32(Flight_level_bin, 2); }
+            if (Convert.ToString(Flight_level_bin[0]) == "1") { FL_int = Library.twos_complement(Flight_level_bin) * -1; }
 
             FL = Convert.ToString(FL_int * 0.25);
 
@@ -312,7 +312,7 @@ namespace Class_Library
 
         private int Decode_PAM(int Position, string[] CAT10_Message)
         {
-            PAM = Convert.ToString(Convert.ToInt32(CAT10_Message[Position]),2);
+            PAM = Convert.ToString(Convert.ToInt32(CAT10_Message[Position]), 2);
 
             Position++;
 
@@ -323,26 +323,26 @@ namespace Class_Library
 
         #region Item I010/140 Time of Day
 
-        public string ToD; public int ToD_seconds; public int ToD_minutes; public int ToD_hours; public int sec;
+        public string ToD; public double ToD_seconds; public double ToD_minutes; public double ToD_hours; public double sec;
 
         private int Decode_Time_of_Day(int Position, string[] CAT10_Message)
         {
             //string Probe = Convert.ToString(CAT10_Message[Position] + CAT10_Message[Position + 1] + CAT10_Message[Position + 2]);
-            int ToD_seconds_int = Convert.ToInt32(Convert.ToString(CAT10_Message[Position] + CAT10_Message[Position + 1] + CAT10_Message[Position + 2]),2);
+            double ToD_seconds_int = Convert.ToInt32(Convert.ToString(CAT10_Message[Position] + CAT10_Message[Position + 1] + CAT10_Message[Position + 2]), 2);
 
-            ToD_seconds = ToD_seconds_int/128;
+            ToD_seconds = (ToD_seconds_int / 128);
 
             ToD_hours = ToD_seconds / 3600;
 
             ToD_minutes = ToD_hours % 60;
 
-            sec = ToD_seconds % 60;
+            sec = Convert.ToInt32(Math.Round((ToD_seconds % 60), 2) * 100);
 
             //ToD_minutes = (ToD_minutes % 60);
 
             //ToD_seconds = (ToD_seconds % 60);
 
-            ToD = Convert.ToString(ToD_hours) + ':' + Convert.ToString(ToD_minutes) + ':' + Convert.ToString(sec) + "UTC";
+            ToD = Convert.ToString(Math.Floor(ToD_hours)) + ':' + Convert.ToString(Math.Floor(ToD_minutes)) + ':' + Convert.ToString(sec) + " UTC";
 
             Position = Position + 3;
 
@@ -442,7 +442,7 @@ namespace Class_Library
             return Position;
         }
 
-            #endregion
+        #endregion
 
         #region Item I010/200 Calculated Track Velocity in Polar Co-ordinates
 
@@ -451,10 +451,10 @@ namespace Class_Library
         private int Decode_Track_Velocity_Polar_Coordinates(int Position, string[] CAT10_Message)
         {
             string Ground_Speed_bin = Convert.ToString(CAT10_Message[Position] + CAT10_Message[Position + 1]);
-            Ground_Speed = Convert.ToString(Convert.ToInt32(Ground_Speed_bin, 2)*0.22); //kt
+            Ground_Speed = Convert.ToString(Convert.ToInt32(Ground_Speed_bin, 2) * 0.22); //kt
             Position = Position + 2;
             string Track_Angle_bin = Convert.ToString(CAT10_Message[Position] + CAT10_Message[Position + 1]);
-            Track_Angle = Convert.ToString(Convert.ToInt32(Track_Angle_bin, 2)*0.0055); //º
+            Track_Angle = Convert.ToString(Convert.ToInt32(Track_Angle_bin, 2) * 0.0055); //º
             Position = Position + 2;
 
             return Position;
@@ -494,30 +494,28 @@ namespace Class_Library
             Position = Position + 1;
 
             if (Ax_bin[0] == '0') { Ax = Convert.ToString(Convert.ToInt32(Ax_bin, 2) * (0.25)); } //m/s^2
-            if (Ax_bin[0] == '1') { Ax = Convert.ToString(Library.twos_complement(Ax_bin) * (0.25)); }
+            if (Ax_bin[0] == '1') { Ax = Convert.ToString("-" + Library.twos_complement(Ax_bin) * (0.25)); }
             if (Ay_bin[0] == '0') { Ay = Convert.ToString(Convert.ToInt32(Ay_bin, 2) * (0.25)); }
-            if (Ay_bin[0] == '1') { Ay = Convert.ToString(Library.twos_complement(Ay_bin) * (0.25)); }
+            if (Ay_bin[0] == '1') { Ay = Convert.ToString("-" + Library.twos_complement(Ay_bin) * (0.25)); }
 
 
             return Position;
         }
         #endregion
 
-        #region Item I010/220 Target Address Mirar si realmente son un solo variable
+        #region Item I010/220 Target Address
 
-        public string Target; public string Address;
+        public string Target_Address;
 
         private int Decode_Target_Address(int Position, string[] CAT10_Message)
         {
-            string Target_bin = Convert.ToString(Convert.ToInt32(CAT10_Message[Position],2));
-            Position = Position + 1;
-            int Address_int = Convert.ToInt32(String.Concat(Convert.ToString(CAT10_Message[Position]) + Convert.ToString(CAT10_Message[Position+1])),2);
-            string hexValue = Address_int.ToString("X");
-            Position = Position + 2;
+            string Probe = String.Concat(CAT10_Message[Position], CAT10_Message[Position + 1], CAT10_Message[Position + 2]);
+            int TargetAddress_int = Convert.ToInt32(String.Concat(CAT10_Message[Position], CAT10_Message[Position + 1], CAT10_Message[Position + 2]), 2);
+            string hexValue = TargetAddress_int.ToString("X");
+            Position = Position + 3;
 
-            Target = Convert.ToString(Convert.ToInt32(Target_bin, 16));
-            Address = Convert.ToString(int.Parse(hexValue, System.Globalization.NumberStyles.HexNumber));
-
+            //Target_Address = Convert.ToString(int.Parse(hexValue, System.Globalization.NumberStyles.HexNumber));
+            Target_Address = "0x" + hexValue;
             return Position;
         }
         #endregion
@@ -537,13 +535,13 @@ namespace Class_Library
             string Six1 = String.Concat(Convert.ToString(CAT10_Message[Position][0]) + Convert.ToString(CAT10_Message[Position][1]) + Convert.ToString(CAT10_Message[Position][2]) + Convert.ToString(CAT10_Message[Position][3]) + Convert.ToString(CAT10_Message[Position][4]) + Convert.ToString(CAT10_Message[Position][5]));
             Char1 = Library.Target_Identification_Coding(Six1);
             Position = Position + 1;
-            string Six2 = String.Concat(Convert.ToString(CAT10_Message[Position-1][6]) + Convert.ToString(CAT10_Message[Position-1][7]) + Convert.ToString(CAT10_Message[Position][0]) + Convert.ToString(CAT10_Message[Position][1]) + Convert.ToString(CAT10_Message[Position][2]) + Convert.ToString(CAT10_Message[Position][3]));
+            string Six2 = String.Concat(Convert.ToString(CAT10_Message[Position - 1][6]) + Convert.ToString(CAT10_Message[Position - 1][7]) + Convert.ToString(CAT10_Message[Position][0]) + Convert.ToString(CAT10_Message[Position][1]) + Convert.ToString(CAT10_Message[Position][2]) + Convert.ToString(CAT10_Message[Position][3]));
             Char2 = Library.Target_Identification_Coding(Six2);
             Position = Position + 1;
-            string Six3 = String.Concat(Convert.ToString(CAT10_Message[Position-1][4]) + Convert.ToString(CAT10_Message[Position-1][5]) + Convert.ToString(CAT10_Message[Position-1][6]) + Convert.ToString(CAT10_Message[Position-1][7]) + Convert.ToString(CAT10_Message[Position][0]) + Convert.ToString(CAT10_Message[Position][1]));
+            string Six3 = String.Concat(Convert.ToString(CAT10_Message[Position - 1][4]) + Convert.ToString(CAT10_Message[Position - 1][5]) + Convert.ToString(CAT10_Message[Position - 1][6]) + Convert.ToString(CAT10_Message[Position - 1][7]) + Convert.ToString(CAT10_Message[Position][0]) + Convert.ToString(CAT10_Message[Position][1]));
             Char3 = Library.Target_Identification_Coding(Six3);
             Position = Position + 1;
-            string Six4 = String.Concat(Convert.ToString(CAT10_Message[Position-1][2]) + Convert.ToString(CAT10_Message[Position-1][3]) + Convert.ToString(CAT10_Message[Position-1][4]) + Convert.ToString(CAT10_Message[Position-1][5]) + Convert.ToString(CAT10_Message[Position-1][6]) + Convert.ToString(CAT10_Message[Position-1][7]));
+            string Six4 = String.Concat(Convert.ToString(CAT10_Message[Position - 1][2]) + Convert.ToString(CAT10_Message[Position - 1][3]) + Convert.ToString(CAT10_Message[Position - 1][4]) + Convert.ToString(CAT10_Message[Position - 1][5]) + Convert.ToString(CAT10_Message[Position - 1][6]) + Convert.ToString(CAT10_Message[Position - 1][7]));
             Char4 = Library.Target_Identification_Coding(Six4);
             string Six5 = String.Concat(Convert.ToString(CAT10_Message[Position][0]) + Convert.ToString(CAT10_Message[Position][1]) + Convert.ToString(CAT10_Message[Position][2]) + Convert.ToString(CAT10_Message[Position][3]) + Convert.ToString(CAT10_Message[Position][4]) + Convert.ToString(CAT10_Message[Position][5]));
             Char5 = Library.Target_Identification_Coding(Six5);
@@ -563,9 +561,9 @@ namespace Class_Library
         }
         #endregion
 
-        #region Item I010/250 Mode S MB Data FALTA ACABAR
+        #region Item I010/250 Mode S MB Data
 
-        public List<string> DataList; 
+        public List<string> DataList;
 
         private int Decode_Mode_S_MB_Data(int Position, string[] CAT10_Message)
         {
@@ -577,7 +575,7 @@ namespace Class_Library
             {
                 BDS1 = CAT10_Message[Position + 8];
                 BDS2 = CAT10_Message[Position + 9];
-                
+
                 if (Convert.ToString(BDS1) + Convert.ToString(BDS2) == "00")
                 {
                     DataList.Add("Data");
@@ -587,14 +585,8 @@ namespace Class_Library
                 {
                     DataList.Add("Data");
                 }
+                Position = Position + 8;
             }
-
-            string Target_bin = Convert.ToString(CAT10_Message[Position]);
-            Position = Position + 1;
-            string Address_bin = Convert.ToString(CAT10_Message[Position] + CAT10_Message[Position + 1]);
-            Position = Position + 1;
-
-
 
             return Position;
         }
@@ -612,7 +604,7 @@ namespace Class_Library
             if (Lenght_bin[7] == '1')
             {
                 string Orientation_bin = Convert.ToString(CAT10_Message[Position]);
-                Orientation = Convert.ToString(Convert.ToInt32(Orientation_bin.Remove(Orientation_bin.Length - 1, 1), 2)*2.81); //º
+                Orientation = Convert.ToString(Convert.ToInt32(Orientation_bin.Remove(Orientation_bin.Length - 1, 1), 2) * 2.81); //º
                 Position = Position + 1;
 
                 if (Orientation_bin[7] == '1')
@@ -647,7 +639,7 @@ namespace Class_Library
         private int Decode_Vehicle_Fleet_Identification(int Position, string[] CAT10_Message)
         {
             string VFI_bin = Convert.ToString(CAT10_Message[Position]);
-            int VFI_Int = Convert.ToInt32(VFI_bin,2);
+            int VFI_Int = Convert.ToInt32(VFI_bin, 2);
 
             if (VFI_Int == 0) { VFI = "Unknown"; }
             if (VFI_Int == 1) { VFI = "ATC equipment maintenance"; }
@@ -682,7 +674,7 @@ namespace Class_Library
             if (TRB_bin == "0") { TRB = "Default"; }
             if (TRB_bin == "1") { TRB = "In Trouble"; }
 
-            int MSG_bin = Convert.ToInt32(CAT10_Message[Position].Remove(0,1),2);
+            int MSG_bin = Convert.ToInt32(CAT10_Message[Position].Remove(0, 1), 2);
             if (MSG_bin == 1) { MSG = "Towing aircraft"; }
             if (MSG_bin == 2) { MSG = "“Follow me” operation "; }
             if (MSG_bin == 3) { MSG = "Runway check"; }
@@ -706,7 +698,7 @@ namespace Class_Library
             string Oy_bin = Convert.ToString(CAT10_Message[Position + 1]);
             string Oy = Convert.ToString(Convert.ToInt32(Oy_bin, 2));
 
-            string Oxy_bin = Convert.ToString(CAT10_Message[Position + 2 ] + CAT10_Message[Position + 3]);
+            string Oxy_bin = Convert.ToString(CAT10_Message[Position + 2] + CAT10_Message[Position + 3]);
             string Oxy = Convert.ToString(Convert.ToInt32(Oxy_bin, 2));
 
             Position = Position + 4;
