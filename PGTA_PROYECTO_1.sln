@@ -5,6 +5,8 @@ VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Asterix_Decoder", "Asterix_Decoder\Asterix_Decoder.csproj", "{9BC6F6ED-3688-42C1-8BB8-592C04EF0B22}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup_Proyecto1_Pablo_Garcia_Hector_Garcia", "..\..\V1.0\Setup_Proyecto1_Pablo_Garcia_Hector_Garcia\Setup_Proyecto1_Pablo_Garcia_Hector_Garcia.vdproj", "{1DF4F15B-AE24-4452-9D13-D443CF72AC69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,8 @@ Global
 		{9BC6F6ED-3688-42C1-8BB8-592C04EF0B22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9BC6F6ED-3688-42C1-8BB8-592C04EF0B22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9BC6F6ED-3688-42C1-8BB8-592C04EF0B22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DF4F15B-AE24-4452-9D13-D443CF72AC69}.Debug|Any CPU.ActiveCfg = Debug
+		{1DF4F15B-AE24-4452-9D13-D443CF72AC69}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
