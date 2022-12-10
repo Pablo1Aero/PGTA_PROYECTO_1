@@ -171,18 +171,11 @@ namespace Class_Library
             return Character;
         }
 
-        public string ToD_Calc(int ToD_seconds)
+        public string ToD_Calc(double ToD_seconds)
         {
-            int ToD_minutes; int ToD_hours; int sec;
-
-            ToD_hours = ToD_seconds / 3600;
-
-            ToD_minutes = ToD_hours % 60;
-
-            sec = ToD_seconds % 60;
-
-            string Tod_string = ToD_hours + ":" + ToD_minutes + ":" + sec +"UTC";
-            return Tod_string;
+            TimeSpan T = TimeSpan.FromSeconds(ToD_seconds);
+            string time = T.ToString(@"hh\:mm\:ss\:fff") + " UTC";
+            return time;
         }
     }
 
