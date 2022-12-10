@@ -1,6 +1,6 @@
 ------ README ------
 
-Developed by Héctor Andrés García Félix and Pablo García Mediavilla
+Developed by Héctor Andrés García Félix and Pablo García Mediavilla.
 
 The program is PORTABLE so no need any setup instalation.
 
