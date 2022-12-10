@@ -1,0 +1,17 @@
+E:\UNI\4º\V1.00\Asterix_Decoder.exe
+E:\UNI\4º\V1.00\Asterix_Decoder.dll
+E:\UNI\4º\V1.00\Asterix_Decoder.deps.json
+E:\UNI\4º\V1.00\Asterix_Decoder.runtimeconfig.json
+E:\UNI\4º\V1.00\Asterix_Decoder.pdb
+E:\UNI\4º\V1.00\EntityFramework.SqlServer.dll
+E:\UNI\4º\V1.00\EntityFramework.dll
+E:\UNI\4º\V1.00\GMap.NET.Core.dll
+E:\UNI\4º\V1.00\GMap.NET.WindowsForms.dll
+E:\UNI\4º\V1.00\Newtonsoft.Json.dll
+E:\UNI\4º\V1.00\SharpKml.Core.dll
+E:\UNI\4º\V1.00\System.Data.SQLite.dll
+E:\UNI\4º\V1.00\System.Data.SqlClient.dll
+E:\UNI\4º\V1.00\System.Data.SQLite.EF6.dll
+E:\UNI\4º\V1.00\System.Security.Principal.Windows.dll
+E:\UNI\4º\V1.00\sni.dll
+E:\UNI\4º\V1.00\SQLite.Interop.dll
