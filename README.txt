@@ -2,6 +2,8 @@
 
 Developed by Hector Andrés Garcia Felix and Pablo García Mediavilla
 
+The program is PORTABLE so no need any setup instalation.
+
 How to use:
 
 1. Select Load File Tab --> Press the Left Icon --> Select .AST file to Read
@@ -13,3 +15,5 @@ How to use:
 					- Select Simulation to access the Map view.
 
 OPTIONAL: You can export all data to CSV by clicking the Export Icon in the Show Data Table Tab.
+
+Link GitHub of the project: https://github.com/Pablo1Aero/PGTA_PROYECTO_1
